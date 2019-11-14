@@ -1,0 +1,335 @@
+openapi: 3.0.0
+info:
+  version: '1'
+  title: ''
+  description: ''
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1
+
+tags: 
+  - name: account
+    description: Calls related to account service
+  - name: post
+    description: Calls related to post service
+  - name: comment
+    description: Calls related to comment service
+  - name: like
+    description: Calls related to like service
+  - name: follow
+    description: Calls related to follow service
+  - name: timeline
+    description: Calls related to timeline service
+    
+paths: 
+  /signup:
+    post:
+      tags:
+        - account
+      summary: User signup
+      description: Signup operation for a user
+      responses:
+        '200':
+          description: successful signup
+        '400':
+          description: bad input parameter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /login:
+    post:
+      tags:
+        - account
+      summary: User login
+      description: Login operation for user
+      responses:
+        '200':
+          description: successful login
+        '400':
+          description: bad input parameter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  description: Username
+                  type: string
+                password:
+                  description: Password
+                  type: string
+              required:
+                - username
+                - password
+  '/posts/{id}':
+    get:
+      tags:
+        - post
+      summary: Get all post for a certain user
+      description: Get all post for a certain user, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Posts retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinePost'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - post
+      summary: Add new post for a user
+      description: User can upload a new post using this route
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+  '/comment/{id}':
+    get:
+      tags:
+        - comment
+      summary: Get all comments for a certain post
+      description: Get all comments for a certain post, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Comments retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - comment
+      summary: Add new comment for a post
+      description: User can add new comment for a post
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Comment'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+  '/like/{id}':
+    get:
+      tags:
+        - like
+      summary: Get all likes for a certain post
+      description: Get all likes for a certain post, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '200':
+          description: Likes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - like
+      summary: Add new like for a post
+      description: User can add new like for a post
+      parameters:
+        - $ref: '#/components/parameters/postId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Like'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+  '/follow/{id}':
+    get:
+      tags:
+        - follow
+      summary: Get all followers for a certain user
+      description: Get all followers for a certain user, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Followers retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - follow
+      summary: Add new follower for a user
+      description: Add new follower for a user
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Follow'
+      responses:
+        '200':
+          description: Operation successfull
+        '400':
+          description: Bad input parameter
+  '/timeline/{id}':
+    get:
+      tags:
+        - timeline
+      summary: Get timeline for a certain user
+      description: This will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Timeline retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimelinePost'
+        '400':
+          description: bad input parameter
+    
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        profilePicture:
+          type: string
+      required:
+        - name
+        - username
+        - password
+        - profilePicture
+    Post:
+      type: object
+      properties:
+        username:
+          type: string
+        postImage:
+          type: string
+        caption:
+          type: string
+      required:
+        - username
+        - postImage
+        - caption
+    TimelinePost:
+      type: object
+      properties:
+        username:
+          type: string
+        postImage:
+          type: string
+        caption:
+          type: string
+        likes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Like'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+      required:
+        - username
+        - postImage
+        - caption
+        - likes
+        - comments
+    Comment:
+      type: object
+      properties:
+        username:
+          type: string
+        message:
+          type: string
+      required:
+        - username
+        - message
+    Like:
+      type: object
+      properties:
+        username:
+          type: string
+        message:
+          type: string
+      required:
+        - username
+        - message
+    Follow:
+      type: object
+      properties:
+        UserId:
+          type: string
+      required:
+        - UserId
+
+  parameters:
+    userId:
+      name: id
+      in: path
+      description: ID of the user
+      required: true
+      schema:
+        type: integer
+        format: int64
+    postId:
+      name: id
+      in: path
+      description: ID of the post
+      required: true
+      schema:
+        type: integer
+        format: int64
