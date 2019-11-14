@@ -102,7 +102,7 @@ paths:
           description: Operation successfull
         '400':
           description: Bad input parameter
-  '/comment/{id}':
+  '/comments/{id}':
     get:
       tags:
         - comment
@@ -139,7 +139,7 @@ paths:
           description: Operation successfull
         '400':
           description: Bad input parameter
-  '/like/{id}':
+  '/likes/{id}':
     get:
       tags:
         - like
