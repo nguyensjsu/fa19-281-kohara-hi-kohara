@@ -2,12 +2,19 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
+
+var mongodbServer = "mongodb://admin:admin@10.0.1.202:27017/?authSource=admin"
+var mongodbDatabase = "follow"
+var mongodbCollection = "follow"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -42,6 +49,18 @@ func getFriendListHandler(formatter *render.Render) http.HandlerFunc {
 		fmt.Println("params:", params)
 		userID := params["id"]
 		fmt.Println("user: ", userID)
+		session, err := mgo.Dial(mongodbServer)
+		if err != nil {
+			panic(err)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodbDatabase).C(mongodbCollection)
+		var result bson.M
+		err = c.Find(bson.M{"userID": userID}).One(&result)
+		if err != nil {
+			log.Fatal(err)
+		}
 		if followersMap == nil {
 			followersMap = make(map[string][]string)
 		}
@@ -50,6 +69,6 @@ func getFriendListHandler(formatter *render.Render) http.HandlerFunc {
 
 		followersArray := followersMap[userID]
 		fmt.Println("followersArray: ", followersArray)
-		formatter.JSON(w, http.StatusOK, followersArray)
+		formatter.JSON(w, http.StatusOK, result)
 	}
 }
