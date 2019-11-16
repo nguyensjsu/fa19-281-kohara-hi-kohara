@@ -10,10 +10,18 @@ import (
 
 	"net/http"
 
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
 )
+
+// MongoDB Config
+var mongodb_server = "mongodb://admin:admin@10.0.1.202:27017/?authSource=admin"
+var mongodb_database = "follow"
+var mongodb_collection = "follow"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -44,6 +52,15 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 // API to add a new friend in folllow list
 func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
+
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			panic(err)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection)
+
 		params := mux.Vars(req)
 		fmt.Println("params:", params)
 		userID := params["id"]
@@ -84,10 +101,25 @@ func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 			formatter.JSON(w, http.StatusOK, follwerReq.UserID)
 
 		}
+		query := bson.M{"userID": userID}
+		var result bson.M
+		err = c.Find(query).One(&result)
+		if err != nil {
+			create := bson.M{
+				"userID":         userID,
+				"FollowersArray": followersArray}
+			err = c.Insert(create)
+
+		} else {
+			change := bson.M{"$set": bson.M{"FollowersArray": followersArray}}
+			err = c.Update(query, change)
+		}
+
 		fmt.Println("After Follower Map: ", followersMap)
 		fmt.Println("After Follower Array: ", followersArray)
 
 	}
+
 }
 
 func stringInSlice(str string, list []string) bool {
