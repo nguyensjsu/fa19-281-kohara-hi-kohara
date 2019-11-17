@@ -56,8 +56,8 @@ func getFollowersHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodbDatabase).C(mongodbCollection)
-		var result[] bson.M
-		err = c.Find(bson.M{"to": userID}).Select(bson.M{"from": 1, "_id":0}).All(&result)
+		var result []bson.M
+		err = c.Find(bson.M{"followee": userID}).Select(bson.M{"follower": 1, "_id": 0}).All(&result)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -87,10 +87,10 @@ func getFollowingHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodbDatabase).C(mongodbCollection)
-		
+
 		//err = c.Find(nil).Select(bson.M{"to": 1}).All(&result)
-		var result[] bson.M
-		err = c.Find(bson.M{"from": userID}).Select(bson.M{"to": 1, "_id":0}).All(&result)
+		var result []bson.M
+		err = c.Find(bson.M{"follower": userID}).Select(bson.M{"followee": 1, "_id": 0}).All(&result)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -98,7 +98,6 @@ func getFollowingHandler(formatter *render.Render) http.HandlerFunc {
 			followersMap = make(map[string][]string)
 		}
 
-	
 		fmt.Println("result: ", result)
 		followersMap["arkil"] = []string{"thor", "hulk"}
 		followersMap["dhoni"] = []string{"jadeja", "raina"}
