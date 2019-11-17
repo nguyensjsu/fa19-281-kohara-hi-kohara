@@ -101,8 +101,8 @@ func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 
 		}
 		create := bson.M{
-			"from": userID,
-			"to":   follwerReq.UserID}
+			"follower": userID,
+			"followee": follwerReq.UserID}
 
 		var result bson.M
 		err = c.Insert(create)
