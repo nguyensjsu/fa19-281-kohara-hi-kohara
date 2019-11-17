@@ -31,8 +31,8 @@ func NewServer() *negroni.Negroni {
 // API Routes
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/follow/{id}", getFriendListHandler(formatter)).Methods("GET")
-
+	mx.HandleFunc("/followers/{id}", getFollowersHandler(formatter)).Methods("GET")
+	mx.HandleFunc("/following/{id}", getFollowingHandler(formatter)).Methods("GET")
 }
 
 // API Ping Handler
@@ -43,7 +43,7 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 }
 
 // Get Friendlist order
-func getFriendListHandler(formatter *render.Render) http.HandlerFunc {
+func getFollowersHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		params := mux.Vars(req)
 		fmt.Println("params:", params)
@@ -56,14 +56,50 @@ func getFriendListHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodbDatabase).C(mongodbCollection)
-		var result bson.M
-		err = c.Find(bson.M{"userID": userID}).One(&result)
+		var result[] bson.M
+		err = c.Find(bson.M{"to": userID}).Select(bson.M{"from": 1, "_id":0}).All(&result)
 		if err != nil {
 			log.Fatal(err)
 		}
 		if followersMap == nil {
 			followersMap = make(map[string][]string)
 		}
+		followersMap["arkil"] = []string{"thor", "hulk"}
+		followersMap["dhoni"] = []string{"jadeja", "raina"}
+
+		followersArray := followersMap[userID]
+		fmt.Println("followersArray: ", followersArray)
+		formatter.JSON(w, http.StatusOK, result)
+	}
+}
+
+// Get Friendlist order
+func getFollowingHandler(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		fmt.Println("params:", params)
+		userID := params["id"]
+		fmt.Println("user: ", userID)
+		session, err := mgo.Dial(mongodbServer)
+		if err != nil {
+			panic(err)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodbDatabase).C(mongodbCollection)
+		
+		//err = c.Find(nil).Select(bson.M{"to": 1}).All(&result)
+		var result[] bson.M
+		err = c.Find(bson.M{"from": userID}).Select(bson.M{"to": 1, "_id":0}).All(&result)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if followersMap == nil {
+			followersMap = make(map[string][]string)
+		}
+
+	
+		fmt.Println("result: ", result)
 		followersMap["arkil"] = []string{"thor", "hulk"}
 		followersMap["dhoni"] = []string{"jadeja", "raina"}
 
