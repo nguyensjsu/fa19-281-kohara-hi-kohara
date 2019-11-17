@@ -7,6 +7,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"net/http"
 
@@ -19,9 +20,9 @@ import (
 )
 
 // MongoDB Config
-var mongodb_server = "mongodb://admin:admin@10.0.1.202:27017/?authSource=admin"
-var mongodb_database = "follow"
-var mongodb_collection = "follow"
+var mongodbServer = "mongodb://admin:admin@10.0.1.202:27017/?authSource=admin"
+var mongodbDatabase = "follow"
+var mongodbCollection = "follow"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -53,13 +54,13 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 
-		session, err := mgo.Dial(mongodb_server)
+		session, err := mgo.Dial(mongodbServer)
 		if err != nil {
 			panic(err)
 		}
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
-		c := session.DB(mongodb_database).C(mongodb_collection)
+		c := session.DB(mongodbDatabase).C(mongodbCollection)
 
 		params := mux.Vars(req)
 		fmt.Println("params:", params)
@@ -89,7 +90,6 @@ func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 				followersMap[userID] = followersArray
 				fmt.Println("followerArray:", followersArray)
 			}
-			formatter.JSON(w, http.StatusOK, follwerReq.UserID)
 			fmt.Println("Key added: ", follwerReq.UserID)
 		} else {
 
@@ -98,22 +98,19 @@ func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 				followersMap[userID] = followersArray
 			}
 			fmt.Println("Key added in map")
-			formatter.JSON(w, http.StatusOK, follwerReq.UserID)
 
 		}
-		query := bson.M{"userID": userID}
+		create := bson.M{
+			"from": userID,
+			"to":   follwerReq.UserID}
+
 		var result bson.M
-		err = c.Find(query).One(&result)
-		if err != nil {
-			create := bson.M{
-				"userID":         userID,
-				"FollowersArray": followersArray}
-			err = c.Insert(create)
+		err = c.Insert(create)
 
-		} else {
-			change := bson.M{"$set": bson.M{"FollowersArray": followersArray}}
-			err = c.Update(query, change)
+		if err != nil {
+			log.Fatal(err)
 		}
+		formatter.JSON(w, http.StatusOK, result)
 
 		fmt.Println("After Follower Map: ", followersMap)
 		fmt.Println("After Follower Array: ", followersArray)
