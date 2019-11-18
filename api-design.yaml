@@ -81,7 +81,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimelinePost'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimelinePost'
         '400':
           description: bad input parameter
     post:
@@ -176,7 +178,7 @@ paths:
           description: Operation successfull
         '400':
           description: Bad input parameter
-  '/follow/{id}':
+  '/followers/{id}':
     get:
       tags:
         - follow
@@ -186,7 +188,7 @@ paths:
         - $ref: '#/components/parameters/userId'
       responses:
         '200':
-          description: Followers retrieved successfully
+          description: Likes retrieved successfully
           content:
             application/json:
               schema:
@@ -195,6 +197,26 @@ paths:
                   $ref: '#/components/schemas/Follow'
         '400':
           description: bad input parameter
+  '/following/{id}':
+    get:
+      tags:
+        - follow
+      summary: Get all users whom user is following
+      description: Get list of user following, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Likes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+        '400':
+          description: bad input parameter
+  '/follow/{id}':
     post:
       tags:
         - follow
@@ -255,59 +277,56 @@ components:
     Post:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        postImage:
+        Image:
           type: string
-        caption:
+        Caption:
           type: string
       required:
-        - username
-        - postImage
-        - caption
+        - Username
+        - Image
+        - Caption
     TimelinePost:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        postImage:
+        Image:
           type: string
-        caption:
+        Caption:
           type: string
-        likes:
+        Likes:
           type: array
           items:
             $ref: '#/components/schemas/Like'
-        comments:
+        Comments:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
       required:
-        - username
-        - postImage
-        - caption
-        - likes
-        - comments
+        - Username
+        - Image
+        - Caption
+        - Likes
+        - Comments
     Comment:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        message:
+        Message:
           type: string
       required:
-        - username
-        - message
+        - Username
+        - Message
     Like:
       type: object
       properties:
-        username:
-          type: string
-        message:
+        Username:
           type: string
       required:
-        - username
-        - message
+        - Username
     Follow:
       type: object
       properties:
@@ -323,13 +342,11 @@ components:
       description: ID of the user
       required: true
       schema:
-        type: integer
-        format: int64
+        type: string
     postId:
       name: id
       in: path
       description: ID of the post
       required: true
       schema:
-        type: integer
-        format: int64
+        type: string
