@@ -13,47 +13,47 @@ go-get:
 	go get -v github.com/satori/go.uuid
 
 format:
-	go fmt followpost
+	go fmt follow-read
 
 install:
-	go install followpost
+	go install follow-read
 
 build:
-	go build followpost
+	go build follow-read
 
 start:
-	./followpost 
+	./follow-read 
 
 test-ping:
 	curl localhost:3000/ping
 
-test-gumball:
-	curl localhost:3000/followpost
+test-follow-read:
+	curl localhost:3000/follow-read
 
 docker-build: 
-	docker build -t followpost .
+	docker build -t follow-read .
 	docker images
 
 docker-run:
-	docker run --name followpost -td -p 3000:3000 followpost
+	docker run --name follow-read -td -p 3000:3000 follow-read
 	docker ps
 
 docker-network:
 	docker network inspect host
 
 docker-shell:
-	docker exec -it followpost bash 
+	docker exec -it follow-read bash 
 
 docker-clean:
-	docker stop followpost
-	docker rm followpost
-	docker rmi followpost
+	docker stop follow-read
+	docker rm follow-read
+	docker rmi follow-read
 
 docker-ip:
 	docker-machine ip
 
 heroku-tag:
-	docker build -t followpost .
+	docker build -t follow-read .
 	docker tag followpost registry.heroku.com/pnguyen-goapi/web
 
 heroku-push:

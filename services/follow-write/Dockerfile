@@ -4,5 +4,5 @@ RUN mkdir /app
 ADD . /app/ 
 WORKDIR /app 
 ENV GOPATH /app
-RUN cd /app ; go install followget
-CMD ["/app/bin/followget"]
+RUN cd /app ; go install follow-write
+CMD ["/app/bin/follow-write"]

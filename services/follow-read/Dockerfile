@@ -4,5 +4,5 @@ RUN mkdir /app
 ADD . /app/ 
 WORKDIR /app 
 ENV GOPATH /app
-RUN cd /app ; go install followpost
-CMD ["/app/bin/followpost"]
+RUN cd /app ; go install follow-read
+CMD ["/app/bin/follow-read"]

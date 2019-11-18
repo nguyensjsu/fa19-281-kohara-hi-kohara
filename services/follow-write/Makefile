@@ -13,48 +13,48 @@ go-get:
 	go get -v github.com/satori/go.uuid
 
 format:
-	go fmt followget
+	go fmt follow-write
 
 install:
-	go install followget
+	go install follow-write
 
 build:
-	go build followget
+	go build follow-write
 
 start:
-	./followget 
+	./follow-write 
 
 test-ping:
 	curl localhost:3000/ping
 
-test-gumball:
-	curl localhost:3000/followget
+test-follow-write:
+	curl localhost:3000/follow-write
 
 docker-build: 
-	docker build -t followget .
+	docker build -t follow-write .
 	docker images
 
 docker-run:
-	docker run --name followget -td -p 3000:3000 followget
+	docker run --name follow-write -td -p 3000:3000 follow-write
 	docker ps
 
 docker-network:
 	docker network inspect host
 
 docker-shell:
-	docker exec -it followget bash 
+	docker exec -it follow-write bash 
 
 docker-clean:
-	docker stop followget
-	docker rm followget
-	docker rmi followget
+	docker stop follow-write
+	docker rm follow-write
+	docker rmi follow-write
 
 docker-ip:
 	docker-machine ip
 
 heroku-tag:
-	docker build -t followget .
-	docker tag followpost registry.heroku.com/pnguyen-goapi/web
+	docker build -t follow-write .
+	docker tag follow-write registry.heroku.com/pnguyen-goapi/web
 
 heroku-push:
 	heroku login 
