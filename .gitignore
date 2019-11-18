@@ -2,3 +2,4 @@ bin
 pkg
 src/github.com
 src/gopkg.in
+*.DS_Store
