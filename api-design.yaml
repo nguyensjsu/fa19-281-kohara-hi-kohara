@@ -81,7 +81,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimelinePost'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimelinePost'
         '400':
           description: bad input parameter
     post:
@@ -275,59 +277,56 @@ components:
     Post:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        postImage:
+        Image:
           type: string
-        caption:
+        Caption:
           type: string
       required:
-        - username
-        - postImage
-        - caption
+        - Username
+        - Image
+        - Caption
     TimelinePost:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        postImage:
+        Image:
           type: string
-        caption:
+        Caption:
           type: string
-        likes:
+        Likes:
           type: array
           items:
             $ref: '#/components/schemas/Like'
-        comments:
+        Comments:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
       required:
-        - username
-        - postImage
-        - caption
-        - likes
-        - comments
+        - Username
+        - Image
+        - Caption
+        - Likes
+        - Comments
     Comment:
       type: object
       properties:
-        username:
+        Username:
           type: string
-        message:
+        Message:
           type: string
       required:
-        - username
-        - message
+        - Username
+        - Message
     Like:
       type: object
       properties:
-        username:
-          type: string
-        message:
+        Username:
           type: string
       required:
-        - username
-        - message
+        - Username
     Follow:
       type: object
       properties:
