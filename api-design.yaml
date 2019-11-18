@@ -343,13 +343,11 @@ components:
       description: ID of the user
       required: true
       schema:
-        type: integer
-        format: int64
+        type: string
     postId:
       name: id
       in: path
       description: ID of the post
       required: true
       schema:
-        type: integer
-        format: int64
+        type: string
