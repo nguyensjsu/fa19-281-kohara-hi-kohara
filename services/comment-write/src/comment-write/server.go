@@ -20,8 +20,8 @@ import (
 
 // MongoDB Config
 var mongodb_server = "mongodb://localhost:32768/?authSource=admin"
-var mongodb_database = "follow"
-var mongodb_collection = "follow"
+var mongodb_database = "comment"
+var mongodb_collection = "comment"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
