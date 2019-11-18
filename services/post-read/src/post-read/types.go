@@ -1,5 +1,5 @@
 /*
-	Follow Post Microservice
+	Post Read Microservice
 */
 
 package main
@@ -22,4 +22,19 @@ type Comment struct {
 	Message  string
 }
 
+type Like struct {
+	Username string
+}
+
 type Comments []Comment
+
+type Likes []Like
+
+type TimelinePost struct {
+	ID       string
+	Username string
+	Image    string
+	Caption  string
+	Likes    Likes
+	Comments Comments
+}
