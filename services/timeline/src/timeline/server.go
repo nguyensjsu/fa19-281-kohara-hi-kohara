@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"encoding/json"
+	"io/ioutil"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
@@ -30,6 +32,9 @@ import (
 //var redis_connect = "localhost:6379"
 var redis_connect = "localhost:6379"
 
+var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/follow/"
+
+var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -105,6 +110,19 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 			// check if posts are found in Redis cache. If so, return them...
 
 			val, _ := redis_client.Get(username).Result()
+
+			if (len(val) == 0) {	//not found in redis cache
+				var full_url := followee_service_base_url + username
+				response, err := http.Get(full_url)
+
+				if err != nil {
+       				fmt.Printf("The HTTP request failed with error %s\n", err)
+    			} else {
+        			data, _ := ioutil.ReadAll(response.Body)
+        			fmt.Println(string(data))
+    			}
+
+			}
 
 			fmt.Println( "Found in Redis: ", val )
 
