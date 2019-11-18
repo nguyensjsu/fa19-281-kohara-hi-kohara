@@ -176,7 +176,7 @@ paths:
           description: Operation successfull
         '400':
           description: Bad input parameter
-  '/follow/{id}':
+  '/followers/{id}':
     get:
       tags:
         - follow
@@ -186,7 +186,7 @@ paths:
         - $ref: '#/components/parameters/userId'
       responses:
         '200':
-          description: Followers retrieved successfully
+          description: Likes retrieved successfully
           content:
             application/json:
               schema:
@@ -195,6 +195,26 @@ paths:
                   $ref: '#/components/schemas/Follow'
         '400':
           description: bad input parameter
+  '/following/{id}':
+    get:
+      tags:
+        - follow
+      summary: Get all users whom user is following
+      description: Get list of user following, this will be used for populating timeline
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: Likes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+        '400':
+          description: bad input parameter
+  '/follow/{id}':
     post:
       tags:
         - follow
