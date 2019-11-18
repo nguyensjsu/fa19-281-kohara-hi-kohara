@@ -1,12 +1,11 @@
 /*
-	Follow Post Microservice
+	Post Read Microservice
 */
 
 package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"time"
 
@@ -47,6 +46,7 @@ func getHttpResponse(url string, target interface{}) error {
 //     raw := bson.Raw{Kind: 4, Data: inStructArrData}
 //     return raw.Unmarshal(outStructArr)
 // }
+
 func DecodeArrData(inStructArr, outStructArr interface{}) error {
 	in := struct{ Data interface{} }{Data: inStructArr}
 	inStructArrData, err := bson.Marshal(in)
@@ -85,7 +85,7 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-// API to get all comments for a user
+// API to get all posts for a user
 func getPostLikeHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		session, err := mgo.Dial(mongodb_server)
@@ -99,24 +99,31 @@ func getPostLikeHandler(formatter *render.Render) http.HandlerFunc {
 		params := mux.Vars(req)
 		userId := params["id"]
 
-		var result []bson.M
-		err = c.Find(bson.M{"Username": userId}).All(&result)
-		if err != nil {
-			log.Fatal(err)
-		}
-
 		var posts []Post
 		err = c.Find(bson.M{"Username": userId}).All(&posts)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Println("Posts", posts)
+		timeline := []TimelinePost{}
+		for index := 0; index < len(posts); index++ {
+			var timelinePost TimelinePost
+			timelinePost.ID = posts[index].ID.Hex()
+			timelinePost.Username = posts[index].Username
+			timelinePost.Caption = posts[index].Caption
+			timelinePost.Image = posts[index].Image
 
-		comment_list := new(Comments)
-		getHttpResponse(comment_read+"/"+"5dd20fb3793fe88e005c6cf9", comment_list)
-		fmt.Println("COMMENT-RESPONSE", comment_list)
+			comment_list := new(Comments)
+			getHttpResponse(comment_read+"/"+timelinePost.ID, comment_list)
+			timelinePost.Comments = *comment_list
 
-		formatter.JSON(w, http.StatusOK, result)
+			like_list := new(Likes)
+			getHttpResponse(like_read+"/"+timelinePost.ID, like_list)
+			timelinePost.Likes = *like_list
+
+			timeline = append(timeline, timelinePost)
+		}
+
+		formatter.JSON(w, http.StatusOK, timeline)
 	}
 }
