@@ -14,9 +14,13 @@ type comments struct {
 	Message			string 	 	
 }
 
+type following struct {
+	UserId		string
+}
+
 type post struct {
 	Username        string	
-	PostImage   	string    	
+	Image   		string    	
 	Caption 		string	    
 	Likes 			likes	
 	Comments		comments
@@ -32,14 +36,6 @@ type errorMessage struct {
 }
 
 
-// var machine gumballMachine = gumballMachine{
-// 	Id:            1,
-// 	CountGumballs: 900,
-// 	ModelNumber:   "M102988",
-// 	SerialNumber:  "1234998871109",
-// }
-
 var posts []post
 
 
-//var orders map[string] order

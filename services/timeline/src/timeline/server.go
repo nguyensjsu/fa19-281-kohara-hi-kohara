@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"encoding/json"
 	"io/ioutil"
+	"encoding/json"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
@@ -32,7 +32,7 @@ import (
 //var redis_connect = "localhost:6379"
 var redis_connect = "localhost:6379"
 
-var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/follow/"
+var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
 
 var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
 
@@ -112,29 +112,51 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 			val, _ := redis_client.Get(username).Result()
 
 			if (len(val) == 0) {	//not found in redis cache
-				var full_url := followee_service_base_url + username
-				response, err := http.Get(full_url)
+				fmt.Println( "Value not found in Redis for : ", username )
+
+				var followee_url = followee_service_base_url + username
+				response, err := http.Get(followee_url)
 
 				if err != nil {
        				fmt.Printf("The HTTP request failed with error %s\n", err)
     			} else {
         			data, _ := ioutil.ReadAll(response.Body)
         			fmt.Println(string(data))
-    			}
 
-			}
+        			var followees[] following
 
-			fmt.Println( "Found in Redis: ", val )
+        			json.Unmarshal([]byte(data), &followees)
 
-		   	var timeline = timeline {
-							Username: username,            		
-							Posts: val,
-				}
+        			for _, value := range followees {
+						fmt.Printf("Value2: %s", value.UserId)
+						var post_url = post_service_base_url + value.UserId
 
-			formatter.JSON(w, http.StatusOK, timeline)
-		}
+						response, err := http.Get(post_url)
 
-	}
+						if err != nil {
+       						fmt.Printf("The HTTP request failed with error %s\n", err)
+    					} else {
+        					data2, _ := ioutil.ReadAll(response.Body)
+        					fmt.Println(string(data2))
+
+					        var posts[] post
+
+					        json.Unmarshal([]byte(data2), &posts)
+
+					        for _, value2 := range posts {
+							     fmt.Printf("Value2: %s", value2.Username)
+							     fmt.Printf("Value2: %s", value2.Image)
+							     fmt.Printf("Value2: %s", value2.Caption)
+						      }
+
+                            formatter.JSON(w, http.StatusOK, posts)
+                        }
+                    }       
+                                 
+			    }
+		   }
+	   }
+    }
 }
 
 
