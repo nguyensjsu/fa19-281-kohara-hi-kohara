@@ -22,8 +22,8 @@ type post struct {
 	Username        string	
 	Image   		string    	
 	Caption 		string	    
-	Likes 			likes	
-	Comments		comments
+	Likes[] 		likes	
+	Comments[]		comments
 }
 
 type timeline struct {

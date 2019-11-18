@@ -125,6 +125,8 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 
         			var followees[] following
 
+                    var posts_array [][]post
+
         			json.Unmarshal([]byte(data), &followees)
 
         			for _, value := range followees {
@@ -138,21 +140,14 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
     					} else {
         					data2, _ := ioutil.ReadAll(response.Body)
         					fmt.Println(string(data2))
-
 					        var posts[] post
-
 					        json.Unmarshal([]byte(data2), &posts)
-
-					        for _, value2 := range posts {
-							     fmt.Printf("Value2: %s", value2.Username)
-							     fmt.Printf("Value2: %s", value2.Image)
-							     fmt.Printf("Value2: %s", value2.Caption)
-						      }
-
-                            formatter.JSON(w, http.StatusOK, posts)
+                            fmt.Println(posts)
+                            posts_array = append(posts_array, posts)
                         }
-                    }       
-                                 
+                    }
+
+                    formatter.JSON(w, http.StatusOK, posts_array)                             
 			    }
 		   }
 	   }
