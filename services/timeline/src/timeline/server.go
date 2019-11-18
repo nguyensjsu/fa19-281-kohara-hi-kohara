@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"io/ioutil"
+	"encoding/json"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
@@ -30,6 +32,9 @@ import (
 //var redis_connect = "localhost:6379"
 var redis_connect = "localhost:6379"
 
+var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
+
+var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -106,17 +111,52 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 
 			val, _ := redis_client.Get(username).Result()
 
-			fmt.Println( "Found in Redis: ", val )
+			if (len(val) == 0) {	//not found in redis cache
+				fmt.Println( "Value not found in Redis for : ", username )
 
-		   	var timeline = timeline {
-							Username: username,            		
-							Posts: val,
-				}
+				var followee_url = followee_service_base_url + username
+				response, err := http.Get(followee_url)
 
-			formatter.JSON(w, http.StatusOK, timeline)
-		}
+				if err != nil {
+       				fmt.Printf("The HTTP request failed with error %s\n", err)
+    			} else {
+        			data, _ := ioutil.ReadAll(response.Body)
+        			fmt.Println(string(data))
 
-	}
+        			var followees[] following
+
+        			json.Unmarshal([]byte(data), &followees)
+
+        			for _, value := range followees {
+						fmt.Printf("Value2: %s", value.UserId)
+						var post_url = post_service_base_url + value.UserId
+
+						response, err := http.Get(post_url)
+
+						if err != nil {
+       						fmt.Printf("The HTTP request failed with error %s\n", err)
+    					} else {
+        					data2, _ := ioutil.ReadAll(response.Body)
+        					fmt.Println(string(data2))
+
+					        var posts[] post
+
+					        json.Unmarshal([]byte(data2), &posts)
+
+					        for _, value2 := range posts {
+							     fmt.Printf("Value2: %s", value2.Username)
+							     fmt.Printf("Value2: %s", value2.Image)
+							     fmt.Printf("Value2: %s", value2.Caption)
+						      }
+
+                            formatter.JSON(w, http.StatusOK, posts)
+                        }
+                    }       
+                                 
+			    }
+		   }
+	   }
+    }
 }
 
 
