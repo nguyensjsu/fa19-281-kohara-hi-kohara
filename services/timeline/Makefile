@@ -13,7 +13,9 @@ go-get:
 	go get -v github.com/satori/go.uuid
 	go get -v database/sql
 	go get -v github.com/go-sql-driver/mysql
+	go get -v github.com/nitishm/go-rejson
 	go get -v github.com/go-redis/redis
+	go get -v github.com/KromDaniel/rejonson
 
 run:
 	go run src/timeline/main.go
