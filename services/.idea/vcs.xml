@@ -2,6 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/login/src/github.com/codegangsta/negroni" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/login/src/github.com/gorilla/mux" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/login/src/github.com/satori/go.uuid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/login/src/github.com/unrolled/render" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/login/src/gopkg.in/mgo.v2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/signup/src/github.com/codegangsta/negroni" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/signup/src/github.com/gorilla/mux" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/signup/src/github.com/satori/go.uuid" vcs="Git" />
