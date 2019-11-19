@@ -11,6 +11,7 @@ go-get:
 	go get -v github.com/gorilla/mux
 	go get -v github.com/unrolled/render
 	go get -v github.com/satori/go.uuid
+	go get gopkg.in/mgo.v2
 
 format:
 	go fmt follow-read
