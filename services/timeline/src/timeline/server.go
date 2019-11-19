@@ -6,6 +6,7 @@
 package main
 
 import (
+    "os"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,27 +15,24 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-redis/redis"
+    "github.com/go-redis/redis"
+    "time"
+    "strconv"
 )
-
-/*
-	Go's SQL Package:  
-		Tutorial: http://go-database-sql.org/index.html
-		Reference: https://golang.org/pkg/database/sql/
-
-	Go's Redis Package:
-		Github: https://github.com/go-redis/redis
-		Example: https://github.com/go-redis/redis/blob/master/example_test.go
-*/
 
 
 //var redis_connect = "localhost:6379"
-var redis_connect = "localhost:6379"
+var redis_connect = os.Getenv("REDIS_ENDPOINT")
 
-var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
+//var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
 
-var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
+var followee_service_base_url = os.Getenv("FOLLOWING_ENDPOINT")
+
+
+//var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
+var post_service_base_url = os.Getenv("POST_ENDPOINT")
+
+var redis_cache_timeout = os.Getenv("REDIS_CACHE_TIMEOUT")
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -64,6 +62,23 @@ func init() {
 	pong, err := redis_client.Ping().Result()
 	fmt.Println(pong, err)
 
+
+    if (len(redis_connect) == 0) {
+            redis_connect = "localhost:6379"
+    }
+
+    if (len(followee_service_base_url) == 0) {
+            followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
+    }
+
+    if  (len(post_service_base_url) == 0) {
+            post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
+    }
+
+    if  (len(redis_cache_timeout) == 0) {
+            redis_cache_timeout = "300"
+    }
+ 
 }
 
 
@@ -104,6 +119,11 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 		var username string = params["id"]
 		fmt.Println( "User name: ", username )
 
+        var posts_array [][]post
+
+
+
+
 		if username == ""  {	
 			formatter.JSON(w, http.StatusBadRequest, struct{ Message string }{"Bad Request. Retry again with correct username..."})	
 		} else {
@@ -124,9 +144,6 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
         			fmt.Println(string(data))
 
         			var followees[] following
-
-                    var posts_array [][]post
-
         			json.Unmarshal([]byte(data), &followees)
 
         			for _, value := range followees {
@@ -147,12 +164,32 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
                         }
                     }
 
-                    formatter.JSON(w, http.StatusOK, posts_array)                             
+                    p, _ := json.Marshal(posts_array)
+
+                    i, _ := strconv.Atoi(redis_cache_timeout)
+                    fmt.Println("Setting cache timeout to %s seconds", i) // Output: 100ms
+
+                    d2 := time.Duration(i) * time.Second
+                    fmt.Println(d2) // Output: 100ms
+
+                    err := redis_client.Set(username, string(p),d2).Err()
+
+                    if err != nil {
+                        panic(err)
+                    } 
+
+                    formatter.JSON(w, http.StatusOK, posts_array)             
 			    }
-		   }
-	   }
-    }
+		   } else {
+                    fmt.Println("Found in Redis Cache. Returnin0 from there...")
+                    json.Unmarshal([]byte(val), &posts_array)
+                    formatter.JSON(w, http.StatusOK, posts_array)
+             }
+
+        }
+	}
 }
+
 
 
   
