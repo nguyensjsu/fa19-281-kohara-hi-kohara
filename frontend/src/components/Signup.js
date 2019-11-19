@@ -45,11 +45,7 @@ class Signup extends Component {
               placeholder="First Name"
               onChange={this.handleChange}
               value={this.state.firstname}
-              error={this.state.errors.firstname}
             />
-            {this.state.errors.firstname && (
-              <div className="red">{this.state.errors.firstname} </div>
-            )}
             <br />
             <input
               type="input"
@@ -76,7 +72,6 @@ class Signup extends Component {
               placeholder="Password"
               onChange={this.handleChange}
               value={this.state.password}
-              error={this.state.errors.password}
             />
             <form onSubmit={this.handleSubmit}>
               <button type="submit" className="login-btn">
