@@ -4,7 +4,7 @@ RUN mkdir /app
 ADD . /app/ 
 WORKDIR /app 
 ENV GOPATH /app
-ENV PORT 80
+ENV PORT 3000
 ENV MONGO mongodb://admin:admin@10.4.1.57:27017/?authSource=admin
 RUN cd /app ; go install like-read
 CMD ["/app/bin/like-read"]
