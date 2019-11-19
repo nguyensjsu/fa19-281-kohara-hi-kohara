@@ -7,6 +7,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"os"
 	"time"
 
 	"net/http"
@@ -57,6 +58,17 @@ func DecodeArrData(inStructArr, outStructArr interface{}) error {
 	if err := bson.Unmarshal(inStructArrData, &out); err != nil {
 		return err
 	}
+
+	if len(os.Getenv("MONGO")) == 0 {
+		mongodb_server = os.Getenv("MONGO")
+	}
+	if len(os.Getenv("COMMENTREAD")) == 0 {
+		comment_read = os.Getenv("COMMENTREAD")
+	}
+	if len(os.Getenv("LIKEREAD")) == 0 {
+		like_read = os.Getenv("LIKEREAD")
+	}
+
 	return out.Data.Unmarshal(outStructArr)
 }
 

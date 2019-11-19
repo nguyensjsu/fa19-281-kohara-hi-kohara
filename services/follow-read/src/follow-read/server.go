@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -25,6 +26,11 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
+
+	if len(os.Getenv("MONGO")) == 0 {
+		mongodbServer = os.Getenv("MONGO")
+	}
+
 	return n
 }
 

@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	"net/http"
 
@@ -33,6 +34,9 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
+	if len(os.Getenv("MONGO")) == 0 {
+		mongodbServer = os.Getenv("MONGO")
+	}
 	return n
 }
 
