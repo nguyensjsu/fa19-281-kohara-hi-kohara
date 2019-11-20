@@ -9,7 +9,6 @@ import (
 	// "log"
 
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -66,18 +65,25 @@ func signup(formatter *render.Render) http.HandlerFunc {
 		var requestBody Signup
 		_ = json.NewDecoder(req.Body).Decode(&requestBody)
 
-		create := bson.M{
-			"Username":  requestBody.Username,
-			"Password":  requestBody.Password,
-			"Firstname": requestBody.Firstname,
-			"Lastname":  requestBody.Lastname}
+		var user bson.M
+		err = c.Find(bson.M{"Username": requestBody.Username}).One(&user)
 
-		fmt.Println(create)
-		err = c.Insert(create)
+		if user["Username"] != requestBody.Username {
+			create := bson.M{
+				"Username":  requestBody.Username,
+				"Password":  requestBody.Password,
+				"Firstname": requestBody.Firstname,
+				"Lastname":  requestBody.Lastname}
 
-		if err != nil {
-			log.Fatal(err)
+			err = c.Insert(create)
+
+			if err != nil {
+				log.Fatal(err)
+			}
+			formatter.JSON(w, http.StatusOK, requestBody.Username)
+		} else {
+			formatter.JSON(w, http.StatusBadRequest, requestBody.Username+" already exist")
 		}
-		formatter.JSON(w, http.StatusOK, requestBody.Username)
+
 	}
 }
