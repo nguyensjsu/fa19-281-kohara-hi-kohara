@@ -26,16 +26,20 @@ class Signup extends Component {
   render() {
     return (
       <div className="home">
-        <div className="login-one">Sign up for Instagram</div>
-        <br />
-        <div className="login-two">
-          Already have an account? <a href="/login">Login</a>
-        </div>
 
-        <div className="login-container">
-          <div className="container">
-            <div className="form-header">Account Sign up</div>
-            <hr />
+         <section id="w3hubs">
+              <div class="container ex">
+              
+                <h1>
+                  <img className="login-logo" src="https://i.pinimg.com/originals/a2/5f/4f/a25f4f58938bbe61357ebca42d23866f.png" />
+                  <img className="login-image-text" src="https://www.edigitalagency.com.au/wp-content/uploads/instagram-logo-text-blue-png.png"/>
+                  
+
+                </h1>
+                <form action="#" method="POST">
+                
+                <div class="form-group">
+                  
 
             <input
               type="input"
@@ -46,8 +50,10 @@ class Signup extends Component {
               onChange={this.handleChange}
               value={this.state.firstname}
             />
-            <br />
-            <input
+                  </div>
+                <div class="form-group">
+                  
+                <input
               type="input"
               name="lastname"
               className="form-control"
@@ -55,32 +61,38 @@ class Signup extends Component {
               onChange={this.handleChange}
               value={this.state.lastname}
             />
-            <br />
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Email Address"
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
-            <br />
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Password"
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-            <form onSubmit={this.handleSubmit}>
-              <button type="submit" className="login-btn">
-                Sign up
-              </button>
-            </form>
-          </div>
-        </div>
+                  </div>
+                <div class="form-group">
+                  
+                      <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Email Address"
+                    onChange={this.handleChange}
+                    value={this.state.email}
+                  />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control"
+                      placeholder="Password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
+                    />
+                  </div>
+                  <button type="button" class="btn instagradient logbtn">Log In</button>
+                </form>
+                <h4>OR</h4>
 
+                <div class="box">
+                  <p className="no-pad">Already have a account? <a href="/login">Login</a></p>
+                </div>
+                </div>
+            
+            </section>
       </div>
     );
   }

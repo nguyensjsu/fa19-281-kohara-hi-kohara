@@ -47,11 +47,11 @@ class Login extends Component {
                   <button type="button" class="btn instagradient logbtn">Log In</button>
                 </form>
                 <h4>OR</h4>
-                <p className="no-pad"><i class="fa fa-facebook-square"></i><a href="#">Log In Facebook</a></p>
-                <p className="no-pad"><a href="#">Forget Password</a></p>
+                
+                
           </div>
                 <div class="box">
-                  <p className="no-pad">Don't have account? <a href="#">Sign up</a></p>
+                  <p className="no-pad">Don't have account? <a href="/signup">Sign up</a></p>
                 </div>
               
             
