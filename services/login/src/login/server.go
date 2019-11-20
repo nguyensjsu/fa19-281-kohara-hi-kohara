@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -33,6 +34,10 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
+	if len(os.Getenv("MONGO")) != 0 {
+		mongodb_server = os.Getenv("MONGO")
+	}
+	fmt.Println("Running Database on ",mongodb_server)
 	return n
 }
 
