@@ -30,21 +30,21 @@ class Login extends Component {
               <div class="container ex">
               
                 <h1>
-                  <img className="login-logo" src="https://cdn3.iconfinder.com/data/icons/transparent-on-dark-grey/500/icon-04-512.png" />
-                  <img className="login-image-text" src="https://clipart.info/images/ccovers/1522452762Instagram-logo-png-text.png"/>
+                  <img className="login-logo" src="https://i.pinimg.com/originals/a2/5f/4f/a25f4f58938bbe61357ebca42d23866f.png" />
+                  <img className="login-image-text" src="https://www.edigitalagency.com.au/wp-content/uploads/instagram-logo-text-blue-png.png"/>
                   
 
                 </h1>
                 <form action="#" method="POST">
                 <div class="form-group">
                   
-                    <input type="name" class="form-control" placeholder="Phone number,username, or email" />
+                    <input type="name" class="form-control" placeholder="Enter username..." />
                   </div>
                   <div class="form-group">
                   
                     <input type="password" class="form-control" placeholder="Password" />
                   </div>
-                  <button type="button" class="btn btn-primary">Log In</button>
+                  <button type="button" class="btn instagradient logbtn">Log In</button>
                 </form>
                 <h4>OR</h4>
                 <p className="no-pad"><i class="fa fa-facebook-square"></i><a href="#">Log In Facebook</a></p>
