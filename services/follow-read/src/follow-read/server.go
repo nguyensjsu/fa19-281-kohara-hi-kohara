@@ -13,7 +13,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-var mongodbServer = "mongodb://admin:admin@10.0.1.202:27017/?authSource=admin"
+var mongodbServer = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
 var mongodbDatabase = "follow"
 var mongodbCollection = "follow"
 
@@ -27,9 +27,15 @@ func NewServer() *negroni.Negroni {
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
 
-	if len(os.Getenv("MONGO")) == 0 {
+	if len(os.Getenv("MONGO")) != 0 {
 		mongodbServer = os.Getenv("MONGO")
 	}
+
+	fmt.Println("ENVIRONMENT")
+	fmt.Println("MONGO URL = ", os.Getenv("MONGO"))
+
+	fmt.Println("SERVER INIT")
+	fmt.Println("MONGO URL = ", mongodbServer)
 
 	return n
 }

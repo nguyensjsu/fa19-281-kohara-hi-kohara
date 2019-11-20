@@ -6,6 +6,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -21,7 +22,7 @@ import (
 )
 
 // MongoDB Config
-var mongodb_server = "mongodb://localhost:32768/?authSource=admin"
+var mongodb_server = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
 var mongodb_database = "post"
 var mongodb_collection = "post"
 var comment_read = "http://localhost:3002"
@@ -59,16 +60,6 @@ func DecodeArrData(inStructArr, outStructArr interface{}) error {
 		return err
 	}
 
-	if len(os.Getenv("MONGO")) == 0 {
-		mongodb_server = os.Getenv("MONGO")
-	}
-	if len(os.Getenv("COMMENTREAD")) == 0 {
-		comment_read = os.Getenv("COMMENTREAD")
-	}
-	if len(os.Getenv("LIKEREAD")) == 0 {
-		like_read = os.Getenv("LIKEREAD")
-	}
-
 	return out.Data.Unmarshal(outStructArr)
 }
 
@@ -81,6 +72,27 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
+
+	if len(os.Getenv("MONGO")) != 0 {
+		mongodb_server = os.Getenv("MONGO")
+	}
+	if len(os.Getenv("COMMENTREAD")) != 0 {
+		comment_read = os.Getenv("COMMENTREAD")
+	}
+	if len(os.Getenv("LIKEREAD")) != 0 {
+		like_read = os.Getenv("LIKEREAD")
+	}
+
+	fmt.Println("ENVIRONMENT")
+	fmt.Println("MONGO URL = ", os.Getenv("MONGO"))
+	fmt.Println("COMMENTREAD URL = ", os.Getenv("COMMENTREAD"))
+	fmt.Println("LIKEREAD URL = ", os.Getenv("LIKEREAD"))
+
+	fmt.Println("SERVER INIT")
+	fmt.Println("MONGO URL = ", mongodb_server)
+	fmt.Println("COMMENTREAD URL = ", comment_read)
+	fmt.Println("LIKEREAD URL = ", like_read)
+
 	return n
 }
 

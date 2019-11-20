@@ -6,6 +6,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -18,7 +19,7 @@ import (
 )
 
 // MongoDB Config
-var mongodb_server = "mongodb://localhost:32768/?authSource=admin"
+var mongodb_server = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
 var mongodb_database = "post"
 var mongodb_collection = "post"
 
@@ -31,9 +32,15 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
-	if len(os.Getenv("MONGO")) == 0 {
+	if len(os.Getenv("MONGO")) != 0 {
 		mongodb_server = os.Getenv("MONGO")
 	}
+	fmt.Println("ENVIRONMENT")
+	fmt.Println("MONGO URL = ", os.Getenv("MONGO"))
+
+	fmt.Println("SERVER INIT")
+	fmt.Println("MONGO URL = ", mongodb_server)
+
 	return n
 }
 
