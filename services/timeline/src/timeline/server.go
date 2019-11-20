@@ -15,14 +15,13 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
-    "github.com/go-redis/redis"
     "time"
-    "strconv"
+    "strings"
 )
 
 
 //var redis_connect = "localhost:6379"
-var redis_connect = os.Getenv("REDIS_ENDPOINT")
+var riak_connect = os.Getenv("RIAK_ENDPOINT")
 
 //var followee_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/following/"
 
@@ -32,7 +31,18 @@ var followee_service_base_url = os.Getenv("FOLLOWING_ENDPOINT")
 //var post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
 var post_service_base_url = os.Getenv("POST_ENDPOINT")
 
-var redis_cache_timeout = os.Getenv("REDIS_CACHE_TIMEOUT")
+type Client struct {
+    Endpoint string
+    *http.Client
+}
+
+var tr = &http.Transport{
+    MaxIdleConns:       10,
+    IdleConnTimeout:    30 * time.Second,
+    DisableCompression: true,
+}
+
+var debug = true
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -46,25 +56,59 @@ func NewServer() *negroni.Negroni {
 	return n
 }
 
-// Init MySQL & Redis DB Connections
+func NewClient(server string) *Client {
+    return &Client{
+        Endpoint:   server,
+        Client:     &http.Client{Transport: tr},
+    }
+}
 
-var redis_client *redis.Client
+func (c *Client) Ping() (string, error) {
+    resp, err := c.Get(c.Endpoint + "/ping" )
+    if err != nil {
+        fmt.Println("[RIAK DEBUG] " + err.Error())
+        return "Ping Error!", err
+    }
+    defer resp.Body.Close()
+    body, err := ioutil.ReadAll(resp.Body)
+    if debug { fmt.Println("[RIAK DEBUG] GET: " + c.Endpoint + "/ping => " + string(body)) }
+    return string(body), nil
+}
+
+func (c *Client) GetPosts(key string) ([][]post, error) {
+    resp, err := c.Get(c.Endpoint + "/buckets/posts/keys/"+key )
+    var post_nil = [][]post {}
+    var posts_array [][]post
+
+    if err != nil {
+        fmt.Println("[RIAK DEBUG] " + err.Error())
+        return post_nil, err
+    }
+    defer resp.Body.Close()
+    body, err := ioutil.ReadAll(resp.Body)
+    if debug { fmt.Println("[RIAK DEBUG] GET: " + c.Endpoint + "/buckets/posts/keys/"+key +" => " + string(body)) }
+    
+    json.Unmarshal([]byte(body), &posts_array)
+
+    return posts_array, nil
+}
+
+
+var c1 = NewClient(riak_connect)
+
 
 func init() {
 
-	// Test Redis Connection
-	redis_client := redis.NewClient(&redis.Options{
-		Addr:     redis_connect,
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-
-	pong, err := redis_client.Ping().Result()
-	fmt.Println(pong, err)
+    msg, err := c1.Ping()
+    if err != nil {
+        log.Fatal(err)
+    } else {
+        log.Println("Riak Ping Server: ", msg)     
+    }
 
 
-    if (len(redis_connect) == 0) {
-            redis_connect = "localhost:6379"
+    if (len(riak_connect) == 0) {
+            riak_connect = "localhost:8098"
     }
 
     if (len(followee_service_base_url) == 0) {
@@ -73,10 +117,6 @@ func init() {
 
     if  (len(post_service_base_url) == 0) {
             post_service_base_url = "https://virtserver.swaggerhub.com/saketthakare/instagram-cmpe281/1/posts/"
-    }
-
-    if  (len(redis_cache_timeout) == 0) {
-            redis_cache_timeout = "300"
     }
  
 }
@@ -108,31 +148,22 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 func timelineHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 
-		redis_client := redis.NewClient(&redis.Options{
-			Addr:     redis_connect,
-			Password: "", // no password set
-			DB:       0,  // use default DB
-		})
-
 		params := mux.Vars(req)
 
 		var username string = params["id"]
 		fmt.Println( "User name: ", username )
 
-        var posts_array [][]post
-
-
-
-
 		if username == ""  {	
 			formatter.JSON(w, http.StatusBadRequest, struct{ Message string }{"Bad Request. Retry again with correct username..."})	
 		} else {
-			// check if posts are found in Redis cache. If so, return them...
 
-			val, _ := redis_client.Get(username).Result()
+        posts_array, err := c1.GetPosts(username)
+        if err != nil {
+            fmt.Println( "Error connecting to RIAK cluster", err)
+        }
 
-			if (len(val) == 0) {	//not found in redis cache
-				fmt.Println( "Value not found in Redis for : ", username )
+			if (len(posts_array) == 0) {	//not found in riak DB
+				fmt.Println( "Value not found in RIAK for : ", username )
 
 				var followee_url = followee_service_base_url + username
 				response, err := http.Get(followee_url)
@@ -166,23 +197,18 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 
                     p, _ := json.Marshal(posts_array)
 
-                    i, _ := strconv.Atoi(redis_cache_timeout)
-                    fmt.Println("Setting cache timeout to %s seconds", i) // Output: 100ms
+                    _, err := c1.Post(c1.Endpoint + "/buckets/posts/keys/"+username+"?returnbody=true", 
+                        "application/json", strings.NewReader(string(p)))
 
-                    d2 := time.Duration(i) * time.Second
-                    fmt.Println(d2) // Output: 100ms
-
-                    err := redis_client.Set(username, string(p),d2).Err()
 
                     if err != nil {
-                        panic(err)
-                    } 
+                        fmt.Printf("Error saving in RIAK %s\n", err)
+                    }
 
                     formatter.JSON(w, http.StatusOK, posts_array)             
 			    }
 		   } else {
                     fmt.Println("Found in Redis Cache. Returnin0 from there...")
-                    json.Unmarshal([]byte(val), &posts_array)
                     formatter.JSON(w, http.StatusOK, posts_array)
              }
 
