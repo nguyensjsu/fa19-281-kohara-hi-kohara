@@ -2,9 +2,9 @@
 
 # Container
 
-ACCOUNT=""
-CONTAINER="gumball"
-VERSION="gumball-redis"
+ACCOUNT="vishumanvi"
+CONTAINER="timeline"
+VERSION="2.0"
 
 # Shell Variables
 
