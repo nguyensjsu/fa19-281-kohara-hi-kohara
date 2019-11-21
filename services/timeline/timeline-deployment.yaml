@@ -21,6 +21,6 @@ spec:
           - name: RIAK_ENDPOINT
             value: "http://internal-riak-db-kohra-classic-697323016.us-east-1.elb.amazonaws.com"
           - name: POST_ENDPOINT
-            value: "http://post-read.internal.landkarade.team/some-user-0/"
+            value: "http://post-read.internal.landkarade.team/"
           - name: FOLLOWING_ENDPOINT
             value: "http://follow-read.internal.landkarade.team/"
