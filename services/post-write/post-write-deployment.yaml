@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-write-service
+  labels:
+    app: post-write-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-write-service
+  template:
+    metadata:
+      labels:
+        app: post-write-service
+    spec:
+      containers:
+        - name: post-write
+          image: 'saketthakare/post-write:v1'

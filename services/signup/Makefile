@@ -63,3 +63,7 @@ heroku-push:
 	heroku login 
 	heroku container:login
 	docker push registry.heroku.com/pnguyen-goapi/web
+
+k-push:
+	kubectl apply -f signup-deployment.yaml
+	kubectl apply -f signup-service.yaml

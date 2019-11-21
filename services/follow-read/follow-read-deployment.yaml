@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: follow-read-service
+  labels:
+    app: follow-read-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: follow-read-service
+  template:
+    metadata:
+      labels:
+        app: follow-read-service
+    spec:
+      containers:
+        - name: follow-read
+          image: 'saketthakare/follow-read:v1'

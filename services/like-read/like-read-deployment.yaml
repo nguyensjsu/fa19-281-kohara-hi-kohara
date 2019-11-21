@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: like-read-service
+  labels:
+    app: like-read-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: like-read-service
+  template:
+    metadata:
+      labels:
+        app: like-read-service
+    spec:
+      containers:
+        - name: like-read
+          image: 'saketthakare/like-read:v1'

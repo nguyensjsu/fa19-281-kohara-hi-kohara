@@ -61,3 +61,7 @@ heroku-push:
 	heroku login 
 	heroku container:login
 	docker push registry.heroku.com/pnguyen-goapi/web
+
+k-push:
+	kubectl apply -f comment-read-deployment.yaml
+	kubectl apply -f comment-read-service.yaml

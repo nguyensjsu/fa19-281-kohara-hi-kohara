@@ -141,3 +141,7 @@ test-process-order:
   	http://localhost:3000/orders \
   	-H 'Content-Type: application/json'
 
+k-push:
+	kubectl apply -f timeline-deployment.yaml
+	kubectl apply -f timeline-service.yaml
+
