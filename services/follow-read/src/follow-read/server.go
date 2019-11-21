@@ -82,6 +82,10 @@ func getFollowersHandler(formatter *render.Render) http.HandlerFunc {
 		if err != nil {
 			log.Fatal(err)
 		}
+		if len(result) == 0 {
+			result = append(result, bson.M{})
+		}
+
 		formatter.JSON(w, http.StatusOK, result)
 	}
 }
@@ -115,6 +119,9 @@ func getFollowingHandler(formatter *render.Render) http.HandlerFunc {
 		err = c.Find(bson.M{"follower": userID}).Select(bson.M{"followee": 1, "_id": 0}).All(&result)
 		if err != nil {
 			log.Fatal(err)
+		}
+		if len(result) == 0 {
+			result = append(result, bson.M{})
 		}
 		formatter.JSON(w, http.StatusOK, result)
 	}
