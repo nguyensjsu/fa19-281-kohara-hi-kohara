@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-read-service
+  labels:
+    app: post-read-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-read-service
+  template:
+    metadata:
+      labels:
+        app: post-read-service
+    spec:
+      containers:
+        - name: post-read
+          image: 'saketthakare/post-read:v1'

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-service
+  labels:
+    app: signup-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: signup-service
+  template:
+    metadata:
+      labels:
+        app: signup-service
+    spec:
+      containers:
+        - name: signup
+          image: 'saketthakare/signup:v1'

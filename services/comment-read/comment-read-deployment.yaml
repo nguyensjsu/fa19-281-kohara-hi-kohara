@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-read-service
+  labels:
+    app: comment-read-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment-read-service
+  template:
+    metadata:
+      labels:
+        app: comment-read-service
+    spec:
+      containers:
+        - name: comment-read
+          image: 'saketthakare/comment-read:v1'
