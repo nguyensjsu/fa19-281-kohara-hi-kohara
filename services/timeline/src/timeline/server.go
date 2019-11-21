@@ -166,6 +166,8 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
 				fmt.Println( "Value not found in RIAK for : ", username )
 
 				var followee_url = followee_service_base_url + username
+                fmt.Println("Following URL is " ,followee_url )
+
 				response, err := http.Get(followee_url)
 
 				if err != nil {
@@ -177,9 +179,13 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
         			var followees[] following
         			json.Unmarshal([]byte(data), &followees)
 
+                    fmt.Println("followees : ", followees)
+
+
         			for _, value := range followees {
-						fmt.Printf("Value2: %s", value.UserId)
-						var post_url = post_service_base_url + value.UserId
+						fmt.Printf("Value2: %s", value.Followee)
+						var post_url = post_service_base_url + value.Followee
+                        fmt.Println("Post URL is " ,post_url )
 
 						response, err := http.Get(post_url)
 
@@ -208,7 +214,7 @@ func timelineHandler(formatter *render.Render) http.HandlerFunc {
                     formatter.JSON(w, http.StatusOK, posts_array)             
 			    }
 		   } else {
-                    fmt.Println("Found in Redis Cache. Returnin0 from there...")
+                    fmt.Println("Found in Redis Cache. Returning from there...")
                     formatter.JSON(w, http.StatusOK, posts_array)
              }
 
