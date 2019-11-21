@@ -11,6 +11,5 @@ jobs:
         name: saketthakare/docker-githubaction
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: services/post-write/Dockerfile
-        workdir: services/post-write
+        workdir: ./services/post-write
     
