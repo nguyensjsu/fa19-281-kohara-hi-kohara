@@ -11,13 +11,6 @@ jobs:
         name: saketthakare/docker-githubaction
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
-        - name: Publish Docker
-  uses: elgohr/Publish-Docker-Github-Action@2.8
-  with:
-    name: saketthakare/post-write
-    username: ${{ secrets.DOCKER_USERNAME }}
-    password: ${{ secrets.DOCKER_PASSWORD }}
-    dockerfile: services/post-write/Dockerfile
-    workdir: services/post-write
+        dockerfile: services/post-write/Dockerfile
+        workdir: services/post-write
     
