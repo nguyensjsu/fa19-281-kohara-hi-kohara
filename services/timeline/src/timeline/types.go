@@ -15,7 +15,7 @@ type comments struct {
 }
 
 type following struct {
-	UserId		string
+	Followee		string
 }
 
 type post struct {
