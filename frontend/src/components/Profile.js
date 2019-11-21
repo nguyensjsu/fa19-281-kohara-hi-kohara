@@ -3,6 +3,7 @@ import axios from "axios";
 import { Redirect } from "react-router";
 import './styles/Profile.css';
 
+
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +22,22 @@ class Profile extends Component {
   doSubmit = () => {
 
   };
+
+
+  componentDidMount(){
+
+    var read_post = process.env.REACT_APP_POSTS_READ;
+    console.log(read_post);
+    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    //Incase you want to use this.setState after API call use _this and not this.
+    let _this = {};
+    window.jQuery.ajax({
+        url: proxy + read_post,
+        complete:function(data){
+            console.log(data);
+        }
+    });
+  }
 
 
   render() {
