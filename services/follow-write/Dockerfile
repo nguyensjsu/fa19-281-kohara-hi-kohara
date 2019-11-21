@@ -5,6 +5,6 @@ ADD . /app/
 WORKDIR /app 
 ENV GOPATH /app
 ENV PORT 3000
-ENV MONGO mongodb://admin:admin@10.4.1.57:27017/?authSource=admin
+ENV MONGO mongodb://admin:admin@10.3.1.166:27017/?authSource=admin
 RUN cd /app ; go install follow-write
 CMD ["/app/bin/follow-write"]

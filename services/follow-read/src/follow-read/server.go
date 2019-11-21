@@ -13,7 +13,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-var mongodbServer = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
+var mongodbServer = "mongodb://admin:admin@10.3.1.166:27017/?authSource=admin"
 var mongodbDatabase = "follow"
 var mongodbCollection = "follow"
 
@@ -68,11 +68,7 @@ func getFollowersHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodbDatabase).C(mongodbCollection)
-		var result []bson.M
-		err = c.Find(bson.M{"followee": userID}).Select(bson.M{"follower": 1, "_id": 0}).All(&result)
-		if err != nil {
-			log.Fatal(err)
-		}
+
 		if followersMap == nil {
 			followersMap = make(map[string][]string)
 		}
@@ -81,6 +77,11 @@ func getFollowersHandler(formatter *render.Render) http.HandlerFunc {
 
 		followersArray := followersMap[userID]
 		fmt.Println("followersArray: ", followersArray)
+		var result []bson.M
+		err = c.Find(bson.M{"followee": userID}).Select(bson.M{"follower": 1, "_id": 0}).All(&result)
+		if err != nil {
+			log.Fatal(err)
+		}
 		formatter.JSON(w, http.StatusOK, result)
 	}
 }
@@ -101,21 +102,20 @@ func getFollowingHandler(formatter *render.Render) http.HandlerFunc {
 		c := session.DB(mongodbDatabase).C(mongodbCollection)
 
 		//err = c.Find(nil).Select(bson.M{"to": 1}).All(&result)
-		var result []bson.M
-		err = c.Find(bson.M{"follower": userID}).Select(bson.M{"followee": 1, "_id": 0}).All(&result)
-		if err != nil {
-			log.Fatal(err)
-		}
+
 		if followersMap == nil {
 			followersMap = make(map[string][]string)
 		}
-
-		fmt.Println("result: ", result)
 		followersMap["arkil"] = []string{"thor", "hulk"}
 		followersMap["dhoni"] = []string{"jadeja", "raina"}
 
 		followersArray := followersMap[userID]
 		fmt.Println("followersArray: ", followersArray)
+		var result []bson.M
+		err = c.Find(bson.M{"follower": userID}).Select(bson.M{"followee": 1, "_id": 0}).All(&result)
+		if err != nil {
+			log.Fatal(err)
+		}
 		formatter.JSON(w, http.StatusOK, result)
 	}
 }

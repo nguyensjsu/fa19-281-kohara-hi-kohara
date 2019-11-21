@@ -21,7 +21,7 @@ import (
 )
 
 // MongoDB Config
-var mongodbServer = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
+var mongodbServer = "mongodb://admin:admin@10.3.1.166:27017/?authSource=admin"
 var mongodbDatabase = "follow"
 var mongodbCollection = "follow"
 
@@ -109,17 +109,15 @@ func addNewFriendHandler(formatter *render.Render) http.HandlerFunc {
 			fmt.Println("Key added in map")
 
 		}
+
 		create := bson.M{
 			"follower": userID,
 			"followee": follwerReq.UserID}
-
-		var result bson.M
 		err = c.Insert(create)
-
 		if err != nil {
 			log.Fatal(err)
 		}
-		formatter.JSON(w, http.StatusOK, result)
+		formatter.JSON(w, http.StatusOK, follwerReq.UserID)
 
 		fmt.Println("After Follower Map: ", followersMap)
 		fmt.Println("After Follower Array: ", followersArray)
