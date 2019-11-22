@@ -59,7 +59,7 @@ jobs:
     - name: Publish
       working-directory: ./frontend-docker
       run: |
-        docker push gcr.io/$GKE_PROJECT/$IMAGE:latest
+        docker push gcr.io/$GKE_PROJECT/$IMAGE
     
     # docker push gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         
