@@ -5,10 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Publish Follow-Read to Docker Repository
+    - name: Publish follow-write to Docker Repository
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: saketthakare/follow-read
+        name: saketthakare/follow-write:v2
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        workdir: ./services/follow-read
+        workdir: ./services/follow-write
