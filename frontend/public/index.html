@@ -49,6 +49,20 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js" integrity="sha256-RTQy8VOmNlT6b2PIRur37p6JEBZUE7o8wPgMvu18MC4=" crossorigin="anonymous"></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "2041fdc7-a90d-45fe-984c-8986664cbd2e",
+    });
+  });
 
+  setTimeout(()=>{
+    OneSignal.push(function() {
+      OneSignal.sendTag("cat",'1273812371283');
+    });
+  },5000);
+</script>
   </body>
 </html>
