@@ -1,20 +1,13 @@
-# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE.
-#
-# To configure this workflow:
-#
-# 1. Ensure that your repository contains the necessary configuration for your Google Kubernetes Engine cluster, including deployment.yml, kustomization.yml, service.yml, etc.
-#
-# 2. Set up secrets in your workspace: GKE_PROJECT with the name of the project, GKE_EMAIL with the service account email, GKE_KEY with the service account key.
-#
-# 3. Change the values for the GKE_ZONE, GKE_CLUSTER and IMAGE environment variables (below).
-
-name: Build and Deploy to GKE
+name: Build and Deploy Frontend to GKE
 
 on:
   push:
     branches:
     - master
-
+    paths:
+    - 'frontend-docker/*'
+    - 'frontend/*'
+        
 # Environment variables available to all jobs and steps in this workflow
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
