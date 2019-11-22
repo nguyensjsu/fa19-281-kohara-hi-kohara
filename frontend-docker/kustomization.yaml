@@ -5,4 +5,4 @@ resources:
 - service.yaml
 
 commonLabels:
-  app.kubernetes.io/name: multi-stage-react-app-example
+  app.kubernetes.io/name: frontend

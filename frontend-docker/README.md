@@ -34,7 +34,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Build docker image
 ```
-docker build --tag multi-stage-react-app-example:latest .
+docker build --tag frontend:latest .
 ```
 
 #### Deploy with native `kubectl` commands
@@ -47,15 +47,15 @@ kubectl apply -f kubernetes/service.yaml
 ** Undo deployments ** 
 
 ```
-kubectl delete configMap multi-stage-react-app-example-config
-kubectl delete deployment multi-stage-react-app-example
-kubectl delete service multi-stage-react-app-example
+kubectl delete configMap frontend-config
+kubectl delete deployment frontend
+kubectl delete service frontend
 ```
 
 Forward port 
 
 ```
-kubectl port-forward svc/multi-stage-react-app-example 3001:80
+kubectl port-forward svc/frontend 3001:80
 ```
 
 Then access the app at [http://localhost:3001](http://localhost:3001)

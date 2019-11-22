@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: service
-  name: multi-stage-react-app-example
+  name: frontend
 spec:
   ports:
     - name: http
@@ -11,7 +11,7 @@ spec:
       protocol: TCP
       targetPort: 80
   selector:
-    app: multi-stage-react-app-example
+    app: frontend
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -19,21 +19,21 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: service
-  name: multi-stage-react-app-example
+  name: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: multi-stage-react-app-example
+      app: frontend
   template:
     metadata:
       labels:
         app.kubernetes.io/component: service
-        app: multi-stage-react-app-example
+        app: frontend
     spec:
       containers:
-        - name: multi-stage-react-app-example
-          image: multi-stage-react-app-example:latest
+        - name: frontend
+          image: frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
