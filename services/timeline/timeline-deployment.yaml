@@ -24,4 +24,4 @@ spec:
             value: "http://a38c7ef6d0c5011ea8c6f027917259c5-1701656662.us-east-1.elb.amazonaws.com/"
           - name: FOLLOWING_ENDPOINT
             value: "http://abbaba0b40cd811eaab3e0e836a5924b-1186692870.us-east-1.elb.amazonaws.com/following/"
-        imagePullPolicy: Always
+          imagePullPolicy: Always
