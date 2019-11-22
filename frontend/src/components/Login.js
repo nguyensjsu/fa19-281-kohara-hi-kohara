@@ -42,7 +42,7 @@ class Login extends Component {
       console.log(login);
       var proxy = process.env.REACT_APP_PROXY_URL;
       //Incase you want to use this.setState after API call use _this and not this.
-      let _this = this;
+      
     var send_data = {
       Username : email,
       Password : password

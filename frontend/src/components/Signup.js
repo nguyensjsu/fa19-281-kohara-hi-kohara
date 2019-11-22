@@ -20,10 +20,7 @@ class Signup extends Component {
   }
 
   submitSignup = (e) => {
-      var signedUpUser = signUpWithCredentials(
-        this.state.email,
-        this.state.password
-      );
+
     var signup_url = process.env.REACT_APP_SIGNUP;
     var proxy = 'https://cors-anywhere.herokuapp.com/';
     //Incase you want to use this.setState after API call use _this and not this.
@@ -53,6 +50,10 @@ class Signup extends Component {
         complete:function(data){
           console.log("Response from database")
           console.log(data.responseJSON)
+          signUpWithCredentials(
+            _this.state.email,
+            _this.state.password
+          );
           _this.props.history.push({pathname: "/login"});
         }
     });
@@ -121,12 +122,12 @@ class Signup extends Component {
                       value={this.state.password}
                     />
                   </div>
-                  <button type="button" class="btn instagradient logbtn" onClick = {this.submitSignup}>Log In</button>
+                  <button type="button" class="btn instagradient logbtn" onClick = {this.submitSignup}>Sign Up</button>
                 </form>
                 <h4>OR</h4>
 
                 <div class="box">
-                  <p className="no-pad">Already have a account? <a href="/login">Sign Up</a></p>
+                  <p className="no-pad">Already have a account? <a href="/login">Log In</a></p>
                 </div>
                 </div>
             
