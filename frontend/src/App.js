@@ -8,6 +8,7 @@ function App() {
         <BrowserRouter>
           <div>
             <Main />
+            
           </div>
         </BrowserRouter>
   );

@@ -14,7 +14,7 @@ class Main extends Component {
         <Route path="/" exact component={Dummy} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/login" exact component={Login} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/profile/:id?" exact component={Profile} />
         <Route path="/feed" exact component={Feed} />
         <Redirect to="/not-found" />
       </Switch>
