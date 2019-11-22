@@ -115,12 +115,12 @@ class Login extends Component {
                 localStorage.setItem( "Username" , data.responseJSON.Username);
                 localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
                 localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
-                setTimeout(()=>{
+                //setTimeout(()=>{
                   window.OneSignal.push(function() {
                     window.OneSignal.sendTag("username",data.responseJSON.Username);
                   });
                   _this.props.history.push({pathname: "/feed"});
-                },500);
+                //},500);
               }
               
           }
