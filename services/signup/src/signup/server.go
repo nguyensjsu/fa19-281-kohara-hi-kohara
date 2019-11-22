@@ -10,7 +10,6 @@ import (
 
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -62,6 +61,7 @@ func signup(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
+			formatter.JSON(w, http.StatusBadRequest, struct{ Message string}{"Can not connect to mongo DB"})
 			panic(err)
 		}
 		defer session.Close()
@@ -84,11 +84,13 @@ func signup(formatter *render.Render) http.HandlerFunc {
 			err = c.Insert(create)
 
 			if err != nil {
-				log.Fatal(err)
+				formatter.JSON(w, http.StatusBadRequest, struct{ Message string }{"Something went wrong"})
+				panic(err)
+				//log.Fatal(err)
 			}
-			formatter.JSON(w, http.StatusOK, requestBody.Username)
+			formatter.JSON(w, http.StatusOK, struct{ Username string }{requestBody.Username})
 		} else {
-			formatter.JSON(w, http.StatusBadRequest, requestBody.Username+" already exist")
+			formatter.JSON(w, http.StatusBadRequest, struct{ Message string }{requestBody.Username+ " already exist"})
 		}
 
 	}
