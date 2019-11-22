@@ -1,0 +1,17 @@
+name: Build follow-write docker image
+on:
+  push:
+    paths:
+      - 'services/follow-write/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish follow-write to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: saketthakare/follow-write:v1
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: ./services/follow-write

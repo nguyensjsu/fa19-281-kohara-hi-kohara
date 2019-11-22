@@ -7,7 +7,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -60,6 +59,7 @@ func login(formatter *render.Render) http.HandlerFunc {
 
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
+			formatter.JSON(w, http.StatusBadRequest, struct{ Message string}{"Can not connect to mongo DB"})
 			panic(err)
 		}
 
@@ -69,7 +69,6 @@ func login(formatter *render.Render) http.HandlerFunc {
 
 		var requestBody Login_req
 		_ = json.NewDecoder(req.Body).Decode(&requestBody)
-		fmt.Println(1)
 
 		var post bson.M
 		err = c.Find(bson.M{"Username": requestBody.Username, "Password": requestBody.Password}).
@@ -77,7 +76,8 @@ func login(formatter *render.Render) http.HandlerFunc {
 					One(&post)
 
 		if err != nil {
-			log.Fatal(err)
+			formatter.JSON(w, http.StatusBadRequest, struct{ Message string }{"Something went wrong"})
+			panic(err)
 		}
 		formatter.JSON(w, http.StatusOK, post)
 	}
