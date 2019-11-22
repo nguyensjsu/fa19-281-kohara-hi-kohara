@@ -1,5 +1,8 @@
-name: Build and Publish Docker
-on: [push]
+name: Build follow write docker
+on:
+  push:
+    paths:
+      - 'services/follow-write/*'
 jobs:
   build:
     runs-on: ubuntu-latest
