@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
+import { signUpWithCredentials } from "./firebase";
 
 
 class Signup extends Component {
@@ -19,9 +20,11 @@ class Signup extends Component {
   }
 
   submitSignup = (e) => {
-
+      var signedUpUser = signUpWithCredentials(
+        this.state.email,
+        this.state.password
+      );
     var signup_url = process.env.REACT_APP_SIGNUP;
-    console.log(signup_url);
     var proxy = 'https://cors-anywhere.herokuapp.com/';
     //Incase you want to use this.setState after API call use _this and not this.
     let _this = this;
@@ -29,8 +32,7 @@ class Signup extends Component {
   //   window.jQuery.ajax({
   //     url: proxy + signup_url,
   //     complete:function(data){
-  //       console.log("Response")
-  //         console.log(data);
+  //       console.log(data.responseJSON)
   //     }
   // });
 
@@ -41,7 +43,6 @@ class Signup extends Component {
         Password : this.state.password
     }
 
-    console.log(send_data)
     window.jQuery.ajax({
       url: proxy + signup_url,
         method: "POST",
@@ -50,8 +51,7 @@ class Signup extends Component {
           "Content-Type": "application/json",
         },
         complete:function(data){
-          console.log("Response")
-          console.log(data);
+          console.log("Response from database")
           console.log(data.responseJSON)
           _this.props.history.push({pathname: "/login"});
         }
@@ -126,7 +126,7 @@ class Signup extends Component {
                 <h4>OR</h4>
 
                 <div class="box">
-                  <p className="no-pad">Already have a account? <a href="/login">Login</a></p>
+                  <p className="no-pad">Already have a account? <a href="/login">Sign Up</a></p>
                 </div>
                 </div>
             
