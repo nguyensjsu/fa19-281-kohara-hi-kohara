@@ -117,3 +117,24 @@ body, html {
   text-align: center;
     padding-left: 0;
 }
+
+.homebutton{
+  position: fixed;
+  top: 0;
+  height: 30px;
+  width: 350px;
+  right: 20px;
+  width: 30px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.lgt{
+  position: fixed;
+    right: 10px;
+    font-size: 23px;
+    background: #010002;
+    color: white;
+    padding: 10px;
+    right: 0px;
+}
