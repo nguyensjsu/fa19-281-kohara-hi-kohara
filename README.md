@@ -2,12 +2,12 @@
 
 ## Team Name: Kohra hi Kohra
 
-## Team Members: 
-Arkhil Thakkar (013825292)
-Saket Thakre ( )
-Varun Jain ( )
-Varun Shrivastav ( )
-Vishwanath Manvi (013776204)
+## Team members: 
+Arkhil Thakkar (013825292) <br />
+Saket Thakre ( ) <br />
+Varun Jain ( ) <br />
+Varun Shrivastav ( ) <br />
+Vishwanath Manvi (013776204) <br />
 
 ## Project Summary:
 
