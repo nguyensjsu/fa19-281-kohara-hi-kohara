@@ -20,6 +20,16 @@ class Login extends Component {
     };
   }
 
+
+  componentDidMount(){
+    if(localStorage.getItem("Username")){
+      window.location.href = "/feed";
+    }
+    else{
+      
+    }
+  }
+
   submitLogin = (e) => {
     var email = this.state.email;
     var password = this.state.password;

@@ -48,6 +48,12 @@ class Profile extends Component {
 
   componentDidMount(){
 
+    if(localStorage.getItem("Username")){
+        //window.location.href = "/feed";
+      }
+      else{
+        window.location.href = "/";
+      }
 
     console.log(this.props);
     let user = "some-user-0";
@@ -273,18 +279,24 @@ class Profile extends Component {
                         // ]
                     }) 
                     
-                    const handleAsText = response => response.text()
+                    if(_tmp.length>0){
+                        const handleAsText = response => response.text()
                 
-                    // const demo = document.getElementById("demo")
-                   fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
-                      .then(handleAsText)
-                      .then(responseText => {
-                          console.log(responseText);
-                      });
-
-                    setTimeout(function(){
+                        // const demo = document.getElementById("demo")
+                       fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
+                          .then(handleAsText)
+                          .then(responseText => {
+                              console.log(responseText);
+                          });
+    
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000);
+                    }
+                    else{
                         window.location.reload();
-                    },2000);
+                    }
+
                     
 
 
@@ -526,6 +538,10 @@ class Profile extends Component {
         <div className="homebutton" onClick={this.goToFeed}>
             <img src="https://image.flaticon.com/icons/svg/20/20176.svg" width="100%"/>
         </div>
+
+
+
+
       </div>
     );
   }
