@@ -25,7 +25,7 @@ function App() {
     return (
 
         <div>
-            <image src="https://i.imgur.com/C7jbKhd.png"></image>
+            <img src="https://i.imgur.com/C7jbKhd.png" alt="100 - 200 Jyada lele"></img>
         </div>
     );
 }
