@@ -67,3 +67,15 @@ heroku-push:
 k-push:
 	kubectl apply -f login-deployment.yaml
 	kubectl apply -f login-service.yaml
+
+k-clear:
+	kubectl delete pod --all
+	kubectl delete svc --all
+	kubectl delete deployment --all
+
+k-getall:
+	kubectl get pod
+	kubectl get svc
+	kubectl get deployment
+
+make temp:
