@@ -2,6 +2,10 @@ import React, {Component} from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
 import './styles/Login.css';
+import { signUpWithCredentials } from "./firebase";
+var firebase = require("firebase/app");
+require("firebase/auth");
+
 
 class Login extends Component {
   constructor(props) {
@@ -17,50 +21,79 @@ class Login extends Component {
   }
 
   submitLogin = (e) => {
+    var email = this.state.email;
+    var password = this.state.password;
 
+    var login = process.env.REACT_APP_LOGIN;
 
-      var login = process.env.REACT_APP_LOGIN;
-      console.log(login);
-      var proxy = 'https://cors-anywhere.herokuapp.com/';
-      //Incase you want to use this.setState after API call use _this and not this.
-      let _this = this;
+    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    //Incase you want to use this.setState after API call use _this and not this.
+    let _this = this;
 
+    // window.jQuery.ajax({
+    //   url: proxy + login,
+    //     complete:function(data){
+    //       console.log("Response")
+    //         console.log(data);
+    //     }
+    // });
+
+    var send_data = {
+      Username : email,
+      Password : password
+    }
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(data => {                
+                window.jQuery.ajax({
+                    url: proxy + login,
+                      method: "POST",
+                      data: JSON.stringify(send_data),
+                      "headers": {
+                        "Content-Type": "application/json",
+                      },
+                      complete:function(data){
+                        console.log("Response from Database")
+                        console.log(data.responseJSON)
+                          if(data.responseJSON){                
+                            localStorage.setItem( "Username" , data.responseJSON.Username);
+                            localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
+                            localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
+                          }
+                          _this.props.history.push({pathname: "/feed"});
+                      }
+                  });
+                window.alert("Login Successful");
+            
+          })
+      .catch(function(error) {
+      console.log(error);
+      window.alert(error.message);
+    });
+  
       // window.jQuery.ajax({
       //   url: proxy + login,
+      //     method: "POST",
+      //     data: JSON.stringify(send_data),
+      //     "headers": {
+      //       "Content-Type": "application/json",
+      //     },
       //     complete:function(data){
       //       console.log("Response")
-      //         console.log(data);
+      //       console.log(data);
+      //       console.log(data.responseJSON)
+      //         if(data.responseJSON){                
+      //           localStorage.setItem( "Username" , data.responseJSON.Username);
+      //           localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
+      //           localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
+      //         }
+      //         _this.props.history.push({pathname: "/feed"});
       //     }
       // });
-      var send_data = {
-        Username : this.state.email,
-        Password : this.state.password
-      }
-
-      window.jQuery.ajax({
-        url: proxy + login,
-          method: "POST",
-          data: JSON.stringify(send_data),
-          "headers": {
-            "Content-Type": "application/json",
-          },
-          complete:function(data){
-            console.log("Response")
-            console.log(data);
-            console.log(data.responseJSON)
-              if(data.responseJSON){                
-                localStorage.setItem( "Username" , data.responseJSON.Username);
-                localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
-                localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
-              }
-              _this.props.history.push({pathname: "/feed"});
-          }
-      });
 
 }
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
           <section id="w3hubs">
