@@ -19,7 +19,8 @@ type following struct {
 }
 
 type post struct {
-	Username        string	
+	ID       		string
+	Username		string
 	Image   		string    	
 	Caption 		string	    
 	Likes[] 		likes	
