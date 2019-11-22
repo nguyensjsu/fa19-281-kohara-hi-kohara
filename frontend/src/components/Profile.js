@@ -282,7 +282,10 @@ class Profile extends Component {
                           console.log(responseText);
                       });
 
-                    window.location.reload();
+                    setTimeout(function(){
+                        window.location.reload();
+                    },2000);
+                    
 
 
 
