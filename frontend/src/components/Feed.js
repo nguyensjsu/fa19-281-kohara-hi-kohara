@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { Redirect } from "react-router";
 import './styles/Feed.css';
-
+import { Link } from 'react-router-dom'
 
 class Feed extends Component {
 
@@ -12,6 +12,8 @@ class Feed extends Component {
         this.state = {
             "timeline" : []
         }
+
+        this.redir = this.redir.bind(this);
     }
 
     componentDidMount(){
@@ -27,8 +29,10 @@ class Feed extends Component {
             return a;
         }
 
+
+
         let timeline = [];
-        var read_post = process.env.REACT_APP_POSTS_READ + "vishumanvi";
+        var read_post = process.env.REACT_APP_TIMELINE_READ + (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");
         console.log(read_post);
         var proxy = process.env.REACT_APP_PROXY_URL;
         //Incase you want to use this.setState after API call use _this and not this.
@@ -39,26 +43,30 @@ class Feed extends Component {
                 console.log(data);
                 console.log(data.responseJSON);
                 timeline = data.responseJSON;
-                console.log(timeline);
-                var newArray = timeline.flat();
-                console.log(newArray);
-                var shuffledArray = arrayshuffle(newArray);
-                console.log(shuffledArray);
-                _this.setState({
-                    "timeline" : shuffledArray
-                })
+                if(data.responseJSON){
+                    console.log(timeline);
+                    var newArray = timeline.flat();
+                    console.log(newArray);
+                    var shuffledArray = arrayshuffle(newArray);
+                    console.log(shuffledArray);
+                    _this.setState({
+                        "timeline" : shuffledArray
+                    });
+                }
+                else{
+                    _this.setState({
+                        "timeline" : []
+                    });
+                }
+                
 
             }
         });
     
       }
     
-      saveComment(e){
-
-        console.log(e);
-        console.log(e.target);
-        console.log(e.target.parentNode);
-        console.log(e.target.tagName);
+      saveComment(e,e2){
+ 
         let text = "";
         if(e.target.tagName=="IMG"){
             text = e.target.closest("div").childNodes[0].value;
@@ -68,19 +76,52 @@ class Feed extends Component {
         }
         console.log(text);
         //return;
+        if(text.toString().trim().length==0){
+            alert("Please enter an input")
+            return;
+        }
         
-        var comment_write = process.env.REACT_APP_COMMENT_WRITE + "/some-user-5" ;
+        var comment_write = process.env.REACT_APP_COMMENT_WRITE + "/" + e2 ;
         console.log(comment_write);
         var proxy = process.env.REACT_APP_PROXY_URL;
         //Incase you want to use this.setState after API call use _this and not this.
         let _this = this;
         window.jQuery.ajax({
             data: JSON.stringify({
-                "username": "some-user-5",
-                "message": "some-comment-6"
+                "username": (localStorage.getItem("Username")?localStorage.getItem("Username"):"."),
+                "message": text
             }),
             method: "POST",
             url: proxy + comment_write,
+            complete:function(data){
+                console.log(data);
+
+
+            }
+        });
+      }
+
+      redir(){
+            this.props.history.push({
+                pathname: "/profile"
+            })
+      }
+
+      addLike(e,d){
+        
+        console.log(e);
+        e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnIStixb-nC68ISl4XQa_tRqbN9muWu90DB8aQfqLg7t6hLvp4BQ&s";
+        var like_write = process.env.REACT_APP_LIKE_WRITE + "/" + d ;
+        console.log(like_write);
+        var proxy = process.env.REACT_APP_PROXY_URL;
+        //Incase you want to use this.setState after API call use _this and not this.
+        let _this = this;
+        window.jQuery.ajax({
+            data: JSON.stringify({
+                "username": (localStorage.getItem("Username")?localStorage.getItem("Username"):"."),
+            }),
+            method: "POST",
+            url: proxy + like_write,
             complete:function(data){
                 console.log(data);
 
@@ -104,6 +145,7 @@ class Feed extends Component {
                     <div class="main-scroll">
                         {
                             this.state.timeline.map((number) => {
+                                if(number){
                                 return (                       
                                 <div class="content" key={+new Date() + Math.random()} >
                                     <div class="post">
@@ -125,7 +167,7 @@ class Feed extends Component {
                                     </div>
                                     <div class="likes">
                                         <div class="left-icons">
-                                            <img src="https://image.flaticon.com/icons/svg/25/25424.svg" width="8%"/>
+                                            <img src="https://image.flaticon.com/icons/svg/25/25424.svg" width="8%" onClick={(e)=>this.addLike(e,number.ID)}/>
                                             <img src="https://image.flaticon.com/icons/svg/54/54916.svg" width="8%"/>
                                             {/* <img src="https://image.flaticon.com/icons/svg/126/126536.svg" width="8%"/> */}
                                         </div>
@@ -155,12 +197,13 @@ class Feed extends Component {
                                     }
                                     
                                     <div className="commentBox">
-                                        <textarea className="form-control" data-gramm_editor="false" ></textarea>
-                                        <button type="button" className="commentbuttton"  onClick={(e)=>this.saveComment(e)}>
+                                        <textarea rows="1" className="form-control" data-gramm_editor="false" ></textarea>
+                                        <button type="button" className="commentbuttton" data-postid={number.ID}  onClick={(e)=>this.saveComment(e,number.ID)}>
                                             <img src="https://image.flaticon.com/icons/svg/20/20402.svg" width="90%" />
                                         </button>
                                     </div>
                                 </div>)
+                                }
                             }
                           )
                         }
@@ -174,7 +217,7 @@ class Feed extends Component {
                         <img src="https://image.flaticon.com/icons/svg/149/149852.svg" width="8%"/>
                         <img src="https://image.flaticon.com/icons/svg/25/25668.svg" width="8%"/>
                         <img src="https://image.flaticon.com/icons/svg/60/60993.svg" width="8%"/>
-                        <img src="https://image.flaticon.com/icons/svg/64/64096.svg" width="8%"/>
+                        <img src="https://image.flaticon.com/icons/svg/64/64096.svg" width="8%" onClick={this.redir}/>
                     </div>
                     </div>
  

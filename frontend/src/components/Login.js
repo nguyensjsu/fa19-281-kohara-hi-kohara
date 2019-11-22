@@ -21,7 +21,7 @@ class Login extends Component {
 
       var login = process.env.REACT_APP_LOGIN;
       console.log(login);
-      var proxy = 'https://cors-anywhere.herokuapp.com/';
+      var proxy = process.env.REACT_APP_PROXY_URL;
       //Incase you want to use this.setState after API call use _this and not this.
       let _this = this;
 
@@ -52,8 +52,14 @@ class Login extends Component {
                 localStorage.setItem( "Username" , data.responseJSON.Username);
                 localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
                 localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
+                setTimeout(()=>{
+                  window.OneSignal.push(function() {
+                    window.OneSignal.sendTag("username",data.responseJSON.Username);
+                  });
+                  _this.props.history.push({pathname: "/feed"});
+                },500);
               }
-              _this.props.history.push({pathname: "/feed"});
+              
           }
       });
 
