@@ -63,6 +63,10 @@ Flexbox and floats are used as a fallback so that browsers which don't support g
 
 .profile-image img {
     border-radius: 50%;
+    width: 152px;
+    height: 152px;
+    border: 1px solid;
+
 }
 
 .profile-user-settings,

@@ -38,6 +38,11 @@ class Login extends Component {
     //     }
     // });
 
+      var login = process.env.REACT_APP_LOGIN;
+      console.log(login);
+      var proxy = process.env.REACT_APP_PROXY_URL;
+      //Incase you want to use this.setState after API call use _this and not this.
+      
     var send_data = {
       Username : email,
       Password : password
@@ -90,6 +95,36 @@ class Login extends Component {
       //         _this.props.history.push({pathname: "/feed"});
       //     }
       // });
+      var send_data = {
+        Username : this.state.email,
+        Password : this.state.password
+      }
+
+      window.jQuery.ajax({
+        url: proxy + login,
+          method: "POST",
+          data: JSON.stringify(send_data),
+          "headers": {
+            "Content-Type": "application/json",
+          },
+          complete:function(data){
+            console.log("Response")
+            console.log(data);
+            console.log(data.responseJSON)
+              if(data.responseJSON){                
+                localStorage.setItem( "Username" , data.responseJSON.Username);
+                localStorage.setItem( "Firstname" , data.responseJSON.Firstname);
+                localStorage.setItem( "Lastname" , data.responseJSON.Lastname);
+                setTimeout(()=>{
+                  window.OneSignal.push(function() {
+                    window.OneSignal.sendTag("username",data.responseJSON.Username);
+                  });
+                  _this.props.history.push({pathname: "/feed"});
+                },500);
+              }
+              
+          }
+      });
 
 }
 
