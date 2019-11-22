@@ -59,7 +59,9 @@ jobs:
     - name: Publish
       working-directory: ./frontend-docker
       run: |
-        docker push gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
+        docker push gcr.io/$GKE_PROJECT/$IMAGE
+    
+    # docker push gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         
     # Set up kustomize
     - name: Set up Kustomize
@@ -75,5 +77,4 @@ jobs:
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         ./kustomize edit set image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
         ./kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/gke-test
         kubectl get services -o wide
