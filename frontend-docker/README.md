@@ -4,65 +4,125 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm start`
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
+The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
+Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
+The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Deploy on Kubernetes
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Normal objects
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Build docker image
+```
+docker build --tag frontend:latest .
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Deploy with native `kubectl` commands
+```
+kubectl apply -f kubernetes/config-dev.yaml # creates the configMap in the Kubernetes cluster
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+```
 
-## Learn More
+** Undo deployments ** 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+kubectl delete configMap frontend-config
+kubectl delete deployment frontend
+kubectl delete service frontend
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Forward port 
 
-### Code Splitting
+```
+kubectl port-forward svc/frontend 3001:80
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Then access the app at [http://localhost:3001](http://localhost:3001)
 
-### Analyzing the Bundle Size
+## Deploy with [helm](https://helm.sh/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Create release
+```
+helm upgrade dev-release ./helm-chart/ --install --force --values helm-chart/config-values/config-dev.yaml
+helm ls #verify dev-release is present
+```
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Undo release
 
-### Advanced Configuration
+```
+helm delete --purge dev-release
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Deploy with [kustomize](https://kustomize.io/)
 
-### Deployment
+Build with kustomize to see what Kubernetes objects are generated
+```
+kustomize build kustomize/base/
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Apply base
+```
+kubectl apply -k kustomize/base
+```
 
-### `yarn build` fails to minify
+Undo
+```
+kubectl delete -k kustomize/base
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Apply DEV overlay
+```
+kubectl apply -k kustomize/overlays/dev
+```
+
+Undo
+```
+kubectl delete -k kustomize/overlays/dev
+```
+
+## Cherry on the cake - use [skaffold](https://skaffold.dev/)
+
+> We will use [skaffold profiles](https://skaffold.dev/docs/how-tos/profiles/)
+
+### Deploy via kubectl 
+```
+skaffold run -p native-kubernetes
+```
+
+```
+skaffold delete -p native-kubernetes
+```
+
+
+### Deploy via kustomize
+
+For example build the prod thing:
+```
+skaffold run -p kustomize-prod
+```
+
+```
+skaffold delete -p kustomize-prod
+```
