@@ -24,6 +24,8 @@ Below are the core functionalities of our implementation of Instagram <br/>
 8. Notification  (TBD: Add specifics) <br/>
 
 
+### Project Architecture: <br/>
+Below is the high level architecture of our implementation of Instagram app.
 
 
 
