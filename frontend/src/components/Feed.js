@@ -95,8 +95,9 @@ class Feed extends Component {
             url: proxy + comment_write,
             complete:function(data){
                 console.log(data);
-
-
+                alert("Posted successfully");
+                
+                window.location.reload();
             }
         });
       }

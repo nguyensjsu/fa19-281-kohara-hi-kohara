@@ -38,6 +38,7 @@ class Profile extends Component {
     this.submitPost = this.submitPost.bind(this);
     this.showImage = this.showImage.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
+    this.goToFeed = this.goToFeed.bind(this);
   }
 
   doSubmit = () => {
@@ -161,6 +162,12 @@ class Profile extends Component {
 
   }
 
+  goToFeed(){
+    this.props.history.push({
+        pathname: "/feed"
+    })
+  }
+
 
   openModal(){
     window.jQuery('#modal-toggle').toggleClass('active');
@@ -217,6 +224,7 @@ class Profile extends Component {
           url: proxy + write_post,
           complete:function(data){
                 alert("Posted Successfully.");
+
                 _this.sendNotifications();
               console.log(data);
           }
@@ -297,7 +305,7 @@ class Profile extends Component {
   handleFollow(){
     var proxy = process.env.REACT_APP_PROXY_URL;
 
-    var write_post = process.env.REACT_APP_FOLLOW_WRITE + "follow/"+ (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");  ;
+    var write_post = process.env.REACT_APP_FOLLOW_WRITE + (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");  ;
     
     let _this = this;
     window.jQuery.ajax({
@@ -476,6 +484,10 @@ class Profile extends Component {
           />
         )}
 
+
+        <div className="homebutton" onClick={this.goToFeed}>
+            <img src="https://image.flaticon.com/icons/svg/20/20176.svg" width="100%"/>
+        </div>
       </div>
     );
   }
