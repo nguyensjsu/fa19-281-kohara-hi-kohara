@@ -48,6 +48,12 @@ class Profile extends Component {
 
   componentDidMount(){
 
+    if(localStorage.getItem("Username")){
+        //window.location.href = "/feed";
+      }
+      else{
+        window.location.href = "/";
+      }
 
     console.log(this.props);
     let user = "some-user-0";
@@ -249,9 +255,53 @@ class Profile extends Component {
 
                     let _tmp = [];
                     for(let d=0 ; d < s.length ; d++){
-                        _tmp.push({"field": "tag", "key": "username", "relation": "=", "value": s[d]["followee"]});
+                        _tmp.push({"field": "tag", "key": "username", "relation": "=", "value": s[d]["follower"]});
                     }
                     console.log(_tmp);
+
+                    const method = "POST"
+                    const headers = {
+                        "Content-type": "application/json",
+                        "Authorization": "Basic ODlkMmIyYWItYzZjNy00ZGU3LThiZjAtNGE1MTIwMGUwMTlh"
+                    }
+                    
+                    const body = JSON.stringify({
+                        "app_id" : "2041fdc7-a90d-45fe-984c-8986664cbd2e",
+                        "contents": {"en": localStorage.getItem("Username")+ " just uploaded an image!."} ,
+                        //"include_player_ids" : ["9589293b-a616-488f-9fa8-e793bbbe6441","6e0c6067-4492-4ccd-81d4-3181950e4550"]
+                        // "filters" : [
+                        // // {"field": "tag", "key": "cat", "relation": "=", "value": "1273812371283"} ,
+                        // // {"operator": "OR"}, {"field": "amount_spent", "relation": ">", "value": "0"}
+                        
+
+                        "filters":_tmp
+                                    
+                        // ]
+                    }) 
+                    
+                    if(_tmp.length>0){
+                        const handleAsText = response => response.text()
+                
+                        // const demo = document.getElementById("demo")
+                       fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
+                          .then(handleAsText)
+                          .then(responseText => {
+                              console.log(responseText);
+                          });
+    
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000);
+                    }
+                    else{
+                        window.location.reload();
+                    }
+
+                    
+
+
+
+
                 }
             });
 
@@ -488,6 +538,10 @@ class Profile extends Component {
         <div className="homebutton" onClick={this.goToFeed}>
             <img src="https://image.flaticon.com/icons/svg/20/20176.svg" width="100%"/>
         </div>
+
+
+
+
       </div>
     );
   }
