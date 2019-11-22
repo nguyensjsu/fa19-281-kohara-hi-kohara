@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: follow-write
-          image: 'arkil21396/follow-write'
+          image: 'saketthakare/follow-write:v1'
