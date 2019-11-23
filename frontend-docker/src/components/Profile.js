@@ -307,11 +307,14 @@ class Profile extends Component {
   }
 
   handleFollow(){
+
+
+    let _this = this;
     var proxy = process.env.REACT_APP_PROXY_URL;
 
     var write_post = process.env.REACT_APP_FOLLOW_WRITE + (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");  ;
     
-    let user = ""(_this.props.match ? _this.props.match.params?_this.props.match.params.id:"":"")
+    let user = (_this.props.match ? _this.props.match.params?_this.props.match.params.id:"":"")
     if(user.indexOf("_")>0){
         user = user.split("");
         var i1 = user.indexOf("_");
@@ -328,7 +331,6 @@ class Profile extends Component {
 
     console.log(user);
 
-    let _this = this;
     window.jQuery.ajax({
         method: "POST",
         data : JSON.stringify({
