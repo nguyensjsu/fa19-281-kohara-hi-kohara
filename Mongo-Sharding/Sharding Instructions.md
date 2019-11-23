@@ -81,7 +81,7 @@ security: <br />
 ### 5) Create 2 Shards having  2 Replica Set
 
 
-Shard1:(In both Nodes)
+### Shard1:(In both Nodes)
 
 Modify  /etc/mongod.conf
 
