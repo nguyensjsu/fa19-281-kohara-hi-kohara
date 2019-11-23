@@ -14,7 +14,12 @@ Therefore we tried to introduce a sepration between read and write. 2 different 
 
 ## Read Write Separation and Event sourcing
 
-We analysed the used cases for all the read and write service and seperated write service by using a message queue.
+We analysed the use cases for all the read and write services and found that
+
+- Read service should always return immediatly
+- Write service response can be delayed.
+
+Therefore seperated write service by using a message queue.
 
 ![](3.png)
 
