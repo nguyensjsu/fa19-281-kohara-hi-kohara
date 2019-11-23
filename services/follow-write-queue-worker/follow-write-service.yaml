@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: follow-write-service
+  labels:
+    app: follow-write-service
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: follow-write-service
