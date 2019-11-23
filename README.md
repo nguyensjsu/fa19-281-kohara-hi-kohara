@@ -28,7 +28,7 @@ Below is the high level architecture of our implementation of Instagram app.
 
 ## Key Cloud Features implemented
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
-2. MongoDB sharding
+2. [MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
 3. [VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
 4. AWS API gateway for client auth
 5. Event sourcing using AWS SQS for CRQS
@@ -47,5 +47,7 @@ Used Git Project Dashboard to manage tasks.
 
 
 Try the app at:
+
+http://landkarade.team/
 
 
