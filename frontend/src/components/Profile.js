@@ -225,7 +225,8 @@ class Profile extends Component {
           method: "POST",
           data : JSON.stringify({
             "image": a,
-            "caption": document.querySelector("#caption").value
+            "caption": document.querySelector("#caption").value,
+            "Id":(localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi")
           }),
           url: proxy + write_post,
           complete:function(data){

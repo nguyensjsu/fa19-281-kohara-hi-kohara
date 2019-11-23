@@ -96,7 +96,8 @@ class Feed extends Component {
         window.jQuery.ajax({
             data: JSON.stringify({
                 "username": (localStorage.getItem("Username")?localStorage.getItem("Username"):"."),
-                "message": text
+                "message": text,
+                "Id": e2
             }),
             method: "POST",
             url: proxy + comment_write,
@@ -127,6 +128,7 @@ class Feed extends Component {
         window.jQuery.ajax({
             data: JSON.stringify({
                 "username": (localStorage.getItem("Username")?localStorage.getItem("Username"):"."),
+                "Id": d
             }),
             method: "POST",
             url: proxy + like_write,
