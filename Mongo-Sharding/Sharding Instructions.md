@@ -10,28 +10,29 @@ ee /etc/apt/sources.list.d/mongodb.list
 sudo apt update
 sudo apt install mongodb-org
 
-openssl rand -base64 741 > keyFile
-sudo mkdir -p /opt/mongodb
-sudo cp keyFile /opt/mongodb
-sudo chown mongodb:mongodb /opt/mongodb/keyFile
-sudo chmod 0600 /opt/mongodb/keyFile
+openssl rand -base64 741 > keyFile <br />
+sudo mkdir -p /opt/mongodb <br />
+sudo cp keyFile /opt/mongodb <br />
+sudo chown mongodb:mongodb /opt/mongodb/keyFile <br />
+sudo chmod 0600 /opt/mongodb/keyFile <br />
 
 Create mongod.service
 
 sudo vi /etc/systemd/system/mongod.service
-[Unit]
-	Description=High-performance, schema-free document-oriented database
-	After=network.target
-[Service]
-	User=mongodb
-	ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
-[Install]
-	WantedBy=multi-user.target
+
+[Unit] <br />
+	Description=High-performance, schema-free document-oriented database <br />
+	After=network.target <br />
+[Service] <br />
+	User=mongodb <br />
+	ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf <br />
+[Install] <br />
+	WantedBy=multi-user.target <br />
 
 
-sudo systemctl enable mongod.service
-sudo service mongod restart
-sudo service mongod status
+sudo systemctl enable mongod.service <br />
+sudo service mongod restart <br />
+sudo service mongod status <br />
 
 
 2)  Modify /etc/hosts of all the nodes
