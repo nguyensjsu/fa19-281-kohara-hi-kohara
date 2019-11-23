@@ -174,7 +174,6 @@ func initQueue() {
 				c := session.DB(mongodb_database).C(mongodb_collection)
 
 				create := bson.M{
-					"Id":       requestBody.Username,
 					"Username": requestBody.Username,
 					"Image":    requestBody.Image,
 					"Caption":  requestBody.Caption}

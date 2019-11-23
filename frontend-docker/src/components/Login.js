@@ -78,7 +78,7 @@ class Login extends Component {
                           _this.props.history.push({pathname: "/feed"});
                       }
                   });
-                window.alert("Login Successful");
+                //window.alert("Login Successful");
             
           })
       .catch(function(error) {
