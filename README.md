@@ -52,7 +52,7 @@ All VPCs are connected through VPC peering to communicate with each other withou
 5. [Event sourcing using AWS SQS for CQRS](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/SQS) <br/>
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
-6. CloudFront CDN for images <br/>
+6. [CloudFront CDN for images](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/cloudfront.png) <br/>
  Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
 7. [Intercloud interaction (GCP + AWS)](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/kubernetes)<br/>
