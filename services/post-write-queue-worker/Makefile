@@ -6,11 +6,16 @@ clean:
 	go clean
 
 go-get:
+	export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
 	rm -rf src/github.com
 	go get -v github.com/codegangsta/negroni
 	go get -v github.com/gorilla/mux
 	go get -v github.com/unrolled/render
 	go get -v github.com/satori/go.uuid
+	go get -v github.com/aws/aws-sdk-go/aws
+	go get -v github.com/aws/aws-sdk-go/aws/awserr
+	go get -v github.com/aws/aws-sdk-go/aws/session
+	go get -v github.com/aws/aws-sdk-go/service/sqs
 	go get gopkg.in/mgo.v2
 
 format:
@@ -65,3 +70,11 @@ heroku-push:
 k-push:
 	kubectl apply -f post-write-deployment.yaml
 	kubectl apply -f post-write-service.yaml
+
+run:
+	export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
+	find . -name 'post-write' -type f -exec rm -f {} \; 
+	go clean
+	go install post-write
+	go build post-write
+	./post-write
