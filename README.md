@@ -28,9 +28,9 @@ Below is the high level architecture of our implementation of Instagram app.
 
 ![Architecture](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Architecture%20DIagram.png)
 
-Clients use a browser to connect to the React Front end app that's running on GCP through a load balancer. The react app runs on 3 node GKE Kubernetes cluster that can be auto scaled.
+Users connect to app using a browser. The browser connects to the React frontend app which is running on GCP through a load balancer. The react app runs on a 3 node GKE Kubernetes cluster that can be auto scaled.
 
-The React app connects to backend deployed on AWS through API gateway. The API gateway has 5 routes, one for each of the microservices deployed on individual VPCs per requirement. Route 53 is used to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
+The React frontend app connects to backend deployed on AWS through API gateway. The API gateway has 5 routes, one for each of the microservices deployed on individual VPCs per requirement. Route 53 is used to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
 
 Each of the microservices is deployed in a seperate Kubernetes cluster managed through EKS. They also have their own NoSQL cluster present in their VPC. All services except Timeline use MongoDB cluster. Timeline service uses Riak cluster for its caching needs. MongoDB is sharded into 2 shards based on username hash. 
 
