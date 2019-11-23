@@ -43,7 +43,7 @@ Below is the high level architecture of our implementation of Instagram app.
 
 Project Management:
 Used Git Project Dashboard to manage tasks.
-![alt text](https://https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png "Logo Title Text 1")
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png "Project Dashboard")
 
 
 Try the app at:
