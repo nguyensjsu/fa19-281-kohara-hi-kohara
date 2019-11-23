@@ -2,7 +2,7 @@
 
 ## Team members: 
 
-- [Arkhil Thakkar](https://github.com/arkil) (013825292) <br />
+- [Arkil Thakkar](https://github.com/arkil) (013825292) <br />
 - [Saket Thakre](https://github.com/saketthakare) (012440974) <br />
 - [Varun Jain](https://github.com/thevarunjain) (013719108)  <br />
 - [Varun Shrivastav](https://github.com/svarun1307) (011438531)  <br />
@@ -55,7 +55,7 @@ All VPCs are connected through VPC peering to communicate with each other withou
 6. CloudFront CDN for images <br/>
  Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
-7. Intercloud interaction (GCP + AWS)<br/>
+7. [Intercloud interaction (GCP + AWS)](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/kubernetes)<br/>
 Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
 8. Continous Integration and Continous Delivery for Frontend app in GCP 
@@ -75,6 +75,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
 13. OneSignal Push Notification service [OneSignal] (https://onesignal.com/): Using the OneSignalSDK, we trigger web push notifications when a user posts a new image.
 
+
 Project Management:
 
 Used Git Project Dashboard to manage tasks.
@@ -84,26 +85,6 @@ Used Git Project Dashboard to manage tasks.
 Followed Agile practise using GitHub Issue board 
 
 ![Issue](https://user-images.githubusercontent.com/42597460/69481994-e2550900-0dca-11ea-96ec-b38550d0a927.png)
-
-
-UI Screenshots:
-Signin:
-![Signin](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signin.png)
-
-Signup:
-![Signup](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup2.png)
-
-Timeline:
-![Timeline](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup.png)
-
-Follow a friend:
-![Follow](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Follow.png)
-
-Submit a Post:
-![Submit](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/SubmitPost.png)
-
-View Profiles:
-![Profile](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Profile.png)
 
 Try the app at:
 
