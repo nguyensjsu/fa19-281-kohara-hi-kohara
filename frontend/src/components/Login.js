@@ -20,6 +20,16 @@ class Login extends Component {
     };
   }
 
+
+  componentDidMount(){
+    if(localStorage.getItem("Username")){
+      window.location.href = "/feed";
+    }
+    else{
+
+    }
+  }
+
   submitLogin = (e) => {
     var email = this.state.email;
     var password = this.state.password;
@@ -68,7 +78,7 @@ class Login extends Component {
                           _this.props.history.push({pathname: "/feed"});
                       }
                   });
-                window.alert("Login Successful");
+                //window.alert("Login Successful");
             
           })
       .catch(function(error) {

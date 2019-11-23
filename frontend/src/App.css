@@ -48,6 +48,11 @@ body, html {
     text-align: center;
 }
 
+.main-scroll{
+  border-left: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
 /* #name{
   position: absolute;
     left: 0;
@@ -137,4 +142,19 @@ body, html {
     color: white;
     padding: 10px;
     right: 0px;
+}
+
+.no-posts{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  /* width: 90%; */
+  font-size: 24px;
+}
+
+.no-posts img{
+  width: 100px;
+  height: 100px;
 }

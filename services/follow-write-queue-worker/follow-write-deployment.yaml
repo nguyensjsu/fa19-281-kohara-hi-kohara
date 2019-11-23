@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: follow-write-service
+  labels:
+    app: follow-write-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: follow-write-service
+  template:
+    metadata:
+      labels:
+        app: follow-write-service
+    spec:
+      containers:
+        - name: follow-write
+          image: 'arkil21396/follow-write'

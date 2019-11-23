@@ -11,7 +11,7 @@ class Main extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/" exact component={Feed} />
+        <Route path="/" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/login" exact component={Login} />
         <Route path="/profile/:id?" exact component={Profile} />

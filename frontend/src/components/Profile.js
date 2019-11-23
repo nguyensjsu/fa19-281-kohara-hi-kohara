@@ -48,6 +48,12 @@ class Profile extends Component {
 
   componentDidMount(){
 
+    if(localStorage.getItem("Username")){
+        //window.location.href = "/feed";
+      }
+      else{
+        window.location.href = "/";
+      }
 
     console.log(this.props);
     let user = "some-user-0";
@@ -219,7 +225,8 @@ class Profile extends Component {
           method: "POST",
           data : JSON.stringify({
             "image": a,
-            "caption": document.querySelector("#caption").value
+            "caption": document.querySelector("#caption").value,
+            "Id":(localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi")
           }),
           url: proxy + write_post,
           complete:function(data){
@@ -236,97 +243,40 @@ class Profile extends Component {
     var proxy = process.env.REACT_APP_PROXY_URL;
     let s = this.state.followerData;
     console.log(s);
-    if(s){
 
-            //Get Followers
-            var get_followers = process.env.REACT_APP_GET_FOLLOWERS + (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");
-            console.log(get_followers);
-            window.jQuery.ajax({
-                url: proxy + get_followers,
-                complete:function(data){
-                    console.log(data);
-
-
-                    let _tmp = [];
-                    for(let d=0 ; d < s.length ; d++){
-                        _tmp.push({"field": "tag", "key": "username", "relation": "=", "value": s[d]["follower"]});
-                    }
-                    console.log(_tmp);
-
-                    const method = "POST"
-                    const headers = {
-                        "Content-type": "application/json",
-                        "Authorization": "Basic ODlkMmIyYWItYzZjNy00ZGU3LThiZjAtNGE1MTIwMGUwMTlh"
-                    }
-                    
-                    const body = JSON.stringify({
-                        "app_id" : "2041fdc7-a90d-45fe-984c-8986664cbd2e",
-                        "contents": {"en": localStorage.getItem("Username")+ " just uploaded an image!."} ,
-                        //"include_player_ids" : ["9589293b-a616-488f-9fa8-e793bbbe6441","6e0c6067-4492-4ccd-81d4-3181950e4550"]
-                        // "filters" : [
-                        // // {"field": "tag", "key": "cat", "relation": "=", "value": "1273812371283"} ,
-                        // // {"operator": "OR"}, {"field": "amount_spent", "relation": ">", "value": "0"}
-                        
-
-                        "filters":_tmp
-                                    
-                        // ]
-                    }) 
-                    
-                    const handleAsText = response => response.text()
-                
-                    // const demo = document.getElementById("demo")
-                   fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
-                      .then(handleAsText)
-                      .then(responseText => {
-                          console.log(responseText);
-                      });
-
-                    setTimeout(function(){
-                        window.location.reload();
-                    },2000);
-                    
-
-
-
-
-                }
-            });
-
-
-
-
-        //Onesignal
-
-        const method = "POST"
-        const headers = {
-            "Content-type": "application/json",
-            "Authorization": "Basic ODlkMmIyYWItYzZjNy00ZGU3LThiZjAtNGE1MTIwMGUwMTlh"
-        }
-        
-        const body = JSON.stringify({
-            "app_id" : "2041fdc7-a90d-45fe-984c-8986664cbd2e",
-            "contents": {"en": "Hello World!"} ,
-            //"include_player_ids" : ["9589293b-a616-488f-9fa8-e793bbbe6441","6e0c6067-4492-4ccd-81d4-3181950e4550"]
-            // "filters" : [
-            // // {"field": "tag", "key": "cat", "relation": "=", "value": "1273812371283"} ,
-            // // {"operator": "OR"}, {"field": "amount_spent", "relation": ">", "value": "0"}
-            // {"field": "tag", "key": "cat", "relation": "=", "value": "1273812371283"},
-            
-                        
-            // ]
-        }) 
-        
-        const handleAsText = response => response.text()
     
-        // const demo = document.getElementById("demo")
-        // return fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
-        //   .then(handleAsText)
-        //   .then(responseText => {
-        //       console.log(responseText);
-        //   });
+    const method = "POST"
+    const headers = {
+        "Content-type": "application/json",
+        "Authorization": "Basic ODlkMmIyYWItYzZjNy00ZGU3LThiZjAtNGE1MTIwMGUwMTlh"
     }
+    
+    const body = JSON.stringify({
+        "app_id" : "2041fdc7-a90d-45fe-984c-8986664cbd2e",
+        "contents": {"en": localStorage.getItem("Username")+ " just uploaded an image!."} ,
+        //"include_player_ids" : ["9589293b-a616-488f-9fa8-e793bbbe6441","6e0c6067-4492-4ccd-81d4-3181950e4550"]
+        // "filters" : [
+        // // {"field": "tag", "key": "cat", "relation": "=", "value": "1273812371283"} ,
+        // // {"operator": "OR"}, {"field": "amount_spent", "relation": ">", "value": "0"}
+        "included_segments" : ["Active Users", "Inactive Users"]
 
+        //"filters":_tmp
+                    
+        // ]
+    }) 
+    
+    
+
+        // const demo = document.getElementById("demo")
+       fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
+          .then(handleAsText)
+          .then(responseText => {
+              console.log(responseText);
+          });
+
+        setTimeout(function(){
+            window.location.reload();
+        },2000);
 
 
   }
@@ -526,6 +476,10 @@ class Profile extends Component {
         <div className="homebutton" onClick={this.goToFeed}>
             <img src="https://image.flaticon.com/icons/svg/20/20176.svg" width="100%"/>
         </div>
+
+
+
+
       </div>
     );
   }

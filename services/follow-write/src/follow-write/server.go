@@ -1,7 +1,3 @@
-/*
-	Follow Post Microservice
-*/
-
 package main
 
 import (
@@ -21,7 +17,7 @@ import (
 )
 
 // MongoDB Config
-var mongodbServer = "mongodb://admin:admin@10.3.1.166:27017/?authSource=admin"
+var mongodbServer = "mongodb://admin:admin@10.3.1.178:27017,10.3.1.126:27017/?authSource=admin"
 var mongodbDatabase = "follow"
 var mongodbCollection = "follow"
 
