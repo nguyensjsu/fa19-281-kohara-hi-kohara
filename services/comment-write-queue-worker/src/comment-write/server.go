@@ -1,5 +1,5 @@
 /*
-	Post Write Microservice
+	Comment Write Microservice
 */
 
 package main
@@ -9,14 +9,16 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
+
+	"net/http"
+
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -26,8 +28,8 @@ import (
 
 // MongoDB Config
 var mongodb_server = "mongodb://admin:admin@10.4.1.57:27017/?authSource=admin"
-var mongodb_database = "post"
-var mongodb_collection = "post"
+var mongodb_database = "comment"
+var mongodb_collection = "comment"
 var queue_name = "pair-upar-kar"
 
 // NewServer configures and returns a Server.
@@ -39,6 +41,7 @@ func NewServer() *negroni.Negroni {
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
 	n.UseHandler(mx)
+
 	if len(os.Getenv("MONGO")) != 0 {
 		mongodb_server = os.Getenv("MONGO")
 	}
@@ -60,18 +63,18 @@ func NewServer() *negroni.Negroni {
 // API Routes
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/{id}", addNewLikeHandler(formatter)).Methods("POST")
+	mx.HandleFunc("/{id}", addNewCommentHandler(formatter)).Methods("POST")
 }
 
 // API Ping Handler
 func pingHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		formatter.JSON(w, http.StatusOK, struct{ Test string }{"Post Write alive!"})
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"Comment Write alive!"})
 	}
 }
 
-// API to add a new post
-func addNewLikeHandler(formatter *render.Render) http.HandlerFunc {
+// API to add a new comment
+func addNewCommentHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
@@ -82,18 +85,18 @@ func addNewLikeHandler(formatter *render.Render) http.HandlerFunc {
 		c := session.DB(mongodb_database).C(mongodb_collection)
 
 		params := mux.Vars(req)
-		userId := params["id"]
-		var requestBody Post
+		postId := params["id"]
+		var requestBody comment
 		_ = json.NewDecoder(req.Body).Decode(&requestBody)
 		create := bson.M{
-			"Username": userId,
-			"Image":    requestBody.Image,
-			"Caption":  requestBody.Caption}
+			"Username": requestBody.Username,
+			"PostId":   postId,
+			"Message":  requestBody.Message}
 		err = c.Insert(create)
 		if err != nil {
 			log.Fatal(err)
 		}
-		formatter.JSON(w, http.StatusOK, "Post added successfully")
+		formatter.JSON(w, http.StatusOK, requestBody.Username)
 	}
 }
 
@@ -159,7 +162,7 @@ func initQueue() {
 
 				fmt.Println(requestMessage)
 
-				var requestBody QueuePost
+				var requestBody QueueComment
 				_ = json.Unmarshal(requestMessage, &requestBody)
 
 				fmt.Println(requestBody)
@@ -175,8 +178,8 @@ func initQueue() {
 
 				create := bson.M{
 					"Username": requestBody.Username,
-					"Image":    requestBody.Image,
-					"Caption":  requestBody.Caption}
+					"PostId":   requestBody.Id,
+					"Message":  requestBody.Message}
 				err = c.Insert(create)
 				if err != nil {
 					continue

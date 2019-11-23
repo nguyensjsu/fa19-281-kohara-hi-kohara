@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-write-service
+  labels:
+    app: comment-write-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment-write-service
+  template:
+    metadata:
+      labels:
+        app: comment-write-service
+    spec:
+      containers:
+        - name: comment-write
+          image: 'saketthakare/comment-write:v1'

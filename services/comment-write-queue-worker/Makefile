@@ -2,7 +2,7 @@
 all: clean
 
 clean: 
-	find . -name 'post-write' -type f -exec rm -f {} \; 
+	find . -name 'comment-write' -type f -exec rm -f {} \; 
 	go clean
 
 go-get:
@@ -19,48 +19,48 @@ go-get:
 	go get gopkg.in/mgo.v2
 
 format:
-	go fmt post-write
+	go fmt comment-write
 
 install:
-	go install post-write
+	go install comment-write
 
 build:
-	go build post-write
+	go build comment-write
 
 start:
-	./post-write 
+	./comment-write 
 
 test-ping:
 	curl localhost:3000/ping
 
 test-gumball:
-	curl localhost:3000/post-write
+	curl localhost:3000/comment-write
 
 docker-build: 
-	docker build -t post-write .
+	docker build -t comment-write .
 	docker images
 
 docker-run:
-	docker run --name post-write -td -p 3000:3000 post-write
+	docker run --name comment-write -td -p 3000:3000 comment-write
 	docker ps
 
 docker-network:
 	docker network inspect host
 
 docker-shell:
-	docker exec -it post-write bash 
+	docker exec -it comment-write bash 
 
 docker-clean:
-	docker stop post-write
-	docker rm post-write
-	docker rmi post-write
+	docker stop comment-write
+	docker rm comment-write
+	docker rmi comment-write
 
 docker-ip:
 	docker-machine ip
 
 heroku-tag:
-	docker build -t post-write .
-	docker tag post-write registry.heroku.com/pnguyen-goapi/web
+	docker build -t comment-write .
+	docker tag comment-write registry.heroku.com/pnguyen-goapi/web
 
 heroku-push:
 	heroku login 
@@ -68,13 +68,13 @@ heroku-push:
 	docker push registry.heroku.com/pnguyen-goapi/web
 
 k-push:
-	kubectl apply -f post-write-deployment.yaml
-	kubectl apply -f post-write-service.yaml
+	kubectl apply -f comment-write-deployment.yaml
+	kubectl apply -f comment-write-service.yaml
 
 run:
 	export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
-	find . -name 'post-write' -type f -exec rm -f {} \; 
+	find . -name 'comment-write' -type f -exec rm -f {} \; 
 	go clean
-	go install post-write
-	go build post-write
-	./post-write
+	go install comment-write
+	go build comment-write
+	./comment-write
