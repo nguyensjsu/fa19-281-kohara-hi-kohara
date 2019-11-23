@@ -28,16 +28,30 @@ Below is the high level architecture of our implementation of Instagram app.
 
 ## Key Cloud Features implemented
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
+  Each of the microservices deployed in EKS clusters of specific VPCs with auto-scaling enabled to provide high availability and reliable services that can scale per demand
 2. [MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
+    Sharding implemented on MongoDB that's the primary datastore for most services. Sharding enables database clusters to scale in the z-axis of AFK scale. We implemented 7 mongo DB nodes (2 config node cluster, 2 shard clusters with a replica set in each along with a query server for clients to connect).
+    
 3. [VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
+  VPC peering used to connect individual VPCs into a common mesh for backend services to integrate seamlesly without going through external load balancers or API gateway. This also ensure higher throughput and lower latencies.
+  
 4. AWS API gateway for client auth
+  Clients (e.g: React App) connect to backend services through AWS API gateway. A route is created for each of the microservice that client can use to work with.
+  
 5. Event sourcing using AWS SQS for CRQS
+
 6. CloudFront CDN for images
+
 7. Intercloud interaction (GCP + AWS)
+
 8. Continous Integration and Continous Delivery for Frontend app in GCP
+
 9. Continuous Integration for Microservices using Github Actions
+
 10. Firebase authentication
+
 11. Route 53 pointing to Kubernetes Load balancers
+
 12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
 
 
