@@ -34,5 +34,5 @@ Below is the high level architecture of our implementation of Instagram app.
 5. Event sourcing with CRQS
 6. CloudFront CDN for images
 7. Intercloud interaction (GCP + AWS)
-8. Continous Integration/Continous Delivery in GCP
+8. Continous Integration and Continous Delivery for Frontend app in GCP
 9. Continuous Integration for Microservices using Github Actions
