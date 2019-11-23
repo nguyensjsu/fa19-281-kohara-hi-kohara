@@ -8,7 +8,7 @@ Varun Shrivastav ( ) <br />
 Vishwanath Manvi (013776204) <br />
 
 ## Project Summary:
-The projet implements a prototype of Instragram app. Instagram is a popular photo sharing social networking site where users can post pictures and like or comment on them. 
+The project implements a prototype of Instragram app. Instagram is a popular photo sharing social networking site where users can post pictures and like or comment on them. 
 
 Below are the core functionalities of our implementation of Instagram <br/>
 
@@ -27,9 +27,9 @@ Below is the high level architecture of our implementation of Instagram app.
 
 
 ## Key Cloud Features implemented
-1. Microservices with auto-scaling deployed using Kubernetes on EKS cluster
-2. MongoDB sharding
-3. VPC Peering to create service mesh
+1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
+2. [MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
+3. [VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
 4. AWS API gateway for client auth
 5. Event sourcing using AWS SQS for CRQS
 6. CloudFront CDN for images
@@ -38,3 +38,16 @@ Below is the high level architecture of our implementation of Instagram app.
 9. Continuous Integration for Microservices using Github Actions
 10. Firebase authentication
 11. Route 53 pointing to Kubernetes Load balancers
+12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
+
+
+Project Management:
+Used Git Project Dashboard to manage tasks.
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png "Project Dashboard")
+
+
+Try the app at:
+
+http://landkarade.team/
+
+
