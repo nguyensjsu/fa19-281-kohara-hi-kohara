@@ -61,7 +61,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 8. Continous Integration and Continous Delivery for Frontend app in GCP 
   Used Github actions to setup CI/CD so that once frontend code is pushed to git, a container build is created and deployed to GKE cluster immediately 
 
-9. [Continuous Integration for Microservices using Github Actions](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Actions.png) <br/>
+9. [Continuous Integration for Microservices using Github Actions] (https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Actions.png) <br/>
   Used Github actions to setup CI so that once microservices code is pushed to git, a container build is created and deployed to dockerhub immediately.
   
 10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
@@ -85,6 +85,34 @@ Used Git Project Dashboard to manage tasks.
 Followed Agile practise using GitHub Issue board 
 
 ![Issue](https://user-images.githubusercontent.com/42597460/69481994-e2550900-0dca-11ea-96ec-b38550d0a927.png)
+
+UI Screenshots:
+
+Signin:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signin.png "Signin")
+
+
+Signup:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup2.png "Signup")
+
+View timeline:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup.png "Timeline")
+
+View Profile:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Profile.png "Profile")
+
+Submit a Post:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/SubmitPost.png "Post")
+
+Follow a friend:
+
+![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Follow.png "Follow")
+
 
 Try the app at:
 
