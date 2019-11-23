@@ -43,7 +43,7 @@ Below is the high level architecture of our implementation of Instagram app.
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
 6. CloudFront CDN for images <br/>
-  Using Cloud Front 
+ Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
 7. Intercloud interaction (GCP + AWS)<br/>
 Deployed Frontend on GCP using GKE and Backend on AWS using EKS  
