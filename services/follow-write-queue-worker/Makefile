@@ -2,15 +2,20 @@
 all: clean
 
 clean: 
-	find . -name 'gumball' -type f -exec rm -f {} \; 
+	find . -name 'follow-write' -type f -exec rm -f {} \; 
 	go clean
 
 go-get:
+	export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
 	rm -rf src/github.com
 	go get -v github.com/codegangsta/negroni
 	go get -v github.com/gorilla/mux
 	go get -v github.com/unrolled/render
 	go get -v github.com/satori/go.uuid
+	go get -v github.com/aws/aws-sdk-go/aws
+	go get -v github.com/aws/aws-sdk-go/aws/awserr
+	go get -v github.com/aws/aws-sdk-go/aws/session
+	go get -v github.com/aws/aws-sdk-go/service/sqs
 	go get gopkg.in/mgo.v2
 
 format:
@@ -62,6 +67,10 @@ heroku-push:
 	heroku container:login
 	docker push registry.heroku.com/pnguyen-goapi/web
 
-k-push:
-	kubectl apply -f follow-write-deployment.yaml
-	kubectl apply -f follow-write-service.yaml
+run:
+	export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
+	find . -name 'follow-write' -type f -exec rm -f {} \; 
+	go clean
+	go install follow-write
+	go build follow-write
+	./follow-write
