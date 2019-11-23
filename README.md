@@ -31,8 +31,10 @@ Below is the high level architecture of our implementation of Instagram app.
 2. MongoDB sharding
 3. VPC Peering to create service mesh
 4. AWS API gateway for client auth
-5. Event sourcing with CRQS
+5. Event sourcing using AWS SQS for CRQS
 6. CloudFront CDN for images
 7. Intercloud interaction (GCP + AWS)
 8. Continous Integration and Continous Delivery for Frontend app in GCP
 9. Continuous Integration for Microservices using Github Actions
+10. Firebase authentication
+11. Route 53 pointing to Kubernetes Load balancers
