@@ -60,6 +60,22 @@ class Profile extends Component {
     try{
         if(this.props.match.params.id){
             user = this.props.match.params.id;
+            //alert(user)
+            //alert(user.indexOf("_"))
+            
+            if(user.indexOf("_")>0){
+                user = user.split("");
+                var i1 = user.indexOf("_");
+                //alert(i1);
+                user[i1] = "@";
+                //alert(user);
+                var i2 = user.lastIndexOf("_");
+                //alert(i2);
+                user[i2] = ".";
+                user = user.join("");
+                //alert(user);
+                
+            }
         }
         else{
             //GET FROM LS
@@ -162,7 +178,12 @@ class Profile extends Component {
     
 
 
-
+    window.jQuery("body").append(`<div class=friendSuggestions><div class="friendlist instagradient">People You may know</div>    
+        <a class=friendlist href="/profile/vish281_gmail_com"><img src=https://p7.hiclipart.com/preview/355/848/997/computer-icons-user-profile-google-account-photos-icon-account.jpg > Vish</a>
+        <a class=friendlist href="/profile/arkil281_gmail_com"><img  src=https://p7.hiclipart.com/preview/355/848/997/computer-icons-user-profile-google-account-photos-icon-account.jpg> Arkil</a>
+        <a class=friendlist href="/profile/saket281_gmail_com" ><img src=https://p7.hiclipart.com/preview/355/848/997/computer-icons-user-profile-google-account-photos-icon-account.jpg> Saket</a>
+        <a class=friendlist href="/profile/vj281_gmail_com" ><img src=https://p7.hiclipart.com/preview/355/848/997/computer-icons-user-profile-google-account-photos-icon-account.jpg> Varun Jain</a>
+        <a class=friendlist href="/profile/thanos_gmail_com" ><img src=https://p7.hiclipart.com/preview/355/848/997/computer-icons-user-profile-google-account-photos-icon-account.jpg> Varun Shrivastav</a></div>`);
 
 
 
@@ -471,7 +492,7 @@ class Profile extends Component {
         
                 </div>
                 )
-            }) : null
+            }) : (<img src="https://thumbs.gfycat.com/ConventionalOblongFairybluebird-max-1mb.gif" className="spinner"/>)
         }
 
  

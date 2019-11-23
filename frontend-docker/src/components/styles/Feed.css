@@ -26,6 +26,7 @@ body{
     height: 100%;
     bottom: 0px;
     transform: translate(-50%);
+    box-shadow: 0 2px 5px 0px #ddd;
 }
 
 
