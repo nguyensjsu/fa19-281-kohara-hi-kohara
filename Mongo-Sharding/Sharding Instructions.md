@@ -1,7 +1,7 @@
-# Instructions on setting up MongoDb Sharding
+## Instructions on setting up MongoDb Sharding
 
 
-1) Create 7 Instances with Mongo installed
+### 1) Create 7 Instances with Mongo installed
 
 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4 <br />
@@ -34,8 +34,7 @@ sudo systemctl enable mongod.service <br />
 sudo service mongod restart <br />
 sudo service mongod status <br />
 
-
-2)  Modify /etc/hosts of all the nodes
+### 2)  Modify /etc/hosts of all the nodes
 
 Add private ip and name
 
@@ -48,7 +47,7 @@ Add private ip and name
 10.3.1.130 mongos <br />
 
 
-3 ) Setup 2 clusters as Config Server.
+### 3 ) Setup 2 clusters as Config Server.
 
 Modify /etc/mongod.conf
 
@@ -66,7 +65,7 @@ security: <br />
    keyFile: /opt/mongodb/keyFile <br />
 
 
-4) Login in to ConfigServer and initiate replica set
+### 4) Login in to ConfigServer and initiate replica set
  
  rs.initiate(
   {
@@ -79,8 +78,7 @@ security: <br />
   }
 )  
 
-
-5) Create 2 Shards having  2 Replica Set
+### 5) Create 2 Shards having  2 Replica Set
 
 
 Shard1:(In both Nodes)
@@ -112,7 +110,7 @@ sharding: <br />
 
 
 
-Shard2:(In both Node)
+#### Shard2:(In both Node)
 
 
 
@@ -142,7 +140,7 @@ Login in to Shard Server and initiate replica set
  )
 
 
-6) Create Mongo Query Writer
+### 6) Create Mongo Query Writer
 
 
 Modify  /etc/mongod.conf
@@ -175,7 +173,9 @@ In Mongo Shell:
 
  ![](1.png)
 
+
  ![](2.png)
+
 
  ![](3.png)
 
