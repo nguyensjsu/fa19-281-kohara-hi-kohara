@@ -28,6 +28,37 @@ Below is the high level architecture of our implementation of Instagram app.
 
 ![Architecture](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Architecture%20DIagram.png)
 
+#### User Services
+<br/>
+<br/>
+
+![](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/User%20Service.png)
+
+#### Post Services
+<br/>
+<br/>
+
+![](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Post%20Service.png)
+
+#### Comment and Like Services
+<br/>
+<br/>
+
+![](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Like%20and%20Comment%20Service.png)
+
+
+#### Follow Services
+<br/>
+<br/>
+
+![](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Follow%20Service.png)
+
+#### Timeline Services
+<br/>
+<br/>
+
+![](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Timeline%20Service.png)
+
 Users connect to app using a browser. The browser connects to the React frontend app which is running on GCP through a load balancer. The react app runs on a 3 node GKE Kubernetes cluster that can be auto scaled.
 
 The React frontend app connects to backend deployed on AWS through API gateway. The API gateway has 5 routes, one for each of the microservices deployed on individual VPCs per requirement. Route 53 is used to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
