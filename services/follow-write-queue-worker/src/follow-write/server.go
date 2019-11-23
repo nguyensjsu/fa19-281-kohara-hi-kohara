@@ -28,9 +28,10 @@ import (
 
 // MongoDB Config
 var mongodbServer = "mongodb://admin:admin@10.3.1.178:27017,10.3.1.126:27017/?authSource=admin"
+var mongodbWorkerServer = "mongodb://admin:admin@10.3.1.126:27017/?authSource=admin"
 var mongodbDatabase = "follow"
 var mongodbCollection = "follow"
-var queue_name = "pair-upar-kar"
+var queue_name = "follow-queue"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -211,7 +212,7 @@ func initQueue() {
 				fmt.Println(requestBody)
 
 				// Insert into mongoDB
-				session, err := mgo.Dial(mongodbServer)
+				session, err := mgo.Dial(mongodbWorkerServer)
 				if err != nil {
 					fmt.Println("Failed to connect to mongo")
 					continue

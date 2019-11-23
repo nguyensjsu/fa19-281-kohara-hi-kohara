@@ -307,16 +307,35 @@ class Profile extends Component {
   }
 
   handleFollow(){
+
+
+    let _this = this;
     var proxy = process.env.REACT_APP_PROXY_URL;
 
     var write_post = process.env.REACT_APP_FOLLOW_WRITE + (localStorage.getItem("Username")?localStorage.getItem("Username"):"vishumanvi");  ;
     
-    let _this = this;
+    let user = (_this.props.match ? _this.props.match.params?_this.props.match.params.id:"":"")
+    if(user.indexOf("_")>0){
+        user = user.split("");
+        var i1 = user.indexOf("_");
+        //alert(i1);
+        user[i1] = "@";
+        //alert(user);
+        var i2 = user.lastIndexOf("_");
+        //alert(i2);
+        user[i2] = ".";
+        user = user.join("");
+        //alert(user);
+        
+    }
+
+    console.log(user);
+
     window.jQuery.ajax({
         method: "POST",
         data : JSON.stringify({
           
-          "UserId": (_this.props.match ? _this.props.match.params?_this.props.match.params.id:"":"")
+          "UserId": user
         }),
         url: proxy + write_post,
         complete:function(data){
