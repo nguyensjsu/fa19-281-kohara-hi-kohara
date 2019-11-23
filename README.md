@@ -40,19 +40,19 @@ All VPCs are connected through VPC peering to communicate with each other withou
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
   Each of the microservices deployed in EKS clusters of specific VPCs with auto-scaling enabled to provide high availability and reliable services that can scale per demand
   
-2. **[MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
+2. [MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
     Sharding implemented on MongoDB that's the primary datastore for most services. Sharding enables database clusters to scale in the z-axis of AFK scale. We implemented 7 mongo DB nodes (2 config node cluster, 2 shard clusters with a replica set in each along with a query server for clients to connect).
     
-3. **[VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
+3. [VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
   VPC peering used to connect individual VPCs into a common mesh for backend services to integrate seamlesly without going through external load balancers or API gateway. This also ensure higher throughput and lower latencies.
   
-4. **[AWS API gateway] for client auth <br/>
+4. AWS API gateway for client auth <br/>
   Clients (e.g: React App) connect to backend services through AWS API gateway. A route is created for each of the microservice that client can use to work with.
   
-5. [Event sourcing using **[AWS SQS] for CQRS](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/SQS) <br/>
+5. [Event sourcing using AWS SQS for CQRS](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/SQS) <br/>
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
-6. [CloudFront CDN] for images <br/>
+6. CloudFront CDN for images <br/>
  Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
 7. Intercloud interaction (GCP + AWS)<br/>
@@ -67,7 +67,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
     When a user login into app his credentials are authenticated using firebase service
     
-11. [Route 53] pointing to Kubernetes Load balancers <br/>
+11. [Route 53](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/Route53) pointing to Kubernetes Load balancers <br/>
     Used Route53 to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
 
 12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
@@ -79,6 +79,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 Project Management:
 
 Used Git Project Dashboard to manage tasks.
+
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png "Project Dashboard")
 
 Followed Agile practise using GitHub Issue board 
