@@ -261,11 +261,6 @@ class Profile extends Component {
   sendNotifications(){
 
 
-    var proxy = process.env.REACT_APP_PROXY_URL;
-    let s = this.state.followerData;
-    console.log(s);
-
-    
     const method = "POST"
     const headers = {
         "Content-type": "application/json",
@@ -286,11 +281,11 @@ class Profile extends Component {
         // ]
     }) 
     
-    
+    //if(_tmp.length>0){
+        const handleAsText = response => response.text()
 
         // const demo = document.getElementById("demo")
        fetch("https://onesignal.com/api/v1/notifications", {method, headers, body})
-          .then(handleAsText)
           .then(responseText => {
               console.log(responseText);
           });
@@ -298,6 +293,7 @@ class Profile extends Component {
         setTimeout(function(){
             window.location.reload();
         },2000);
+ 
 
   }
 
