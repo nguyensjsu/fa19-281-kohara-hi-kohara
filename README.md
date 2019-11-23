@@ -52,28 +52,28 @@ All VPCs are connected through VPC peering to communicate with each other withou
 5. Event sourcing using **[AWS SQS] for CQRS <br/>
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
-6. **[CloudFront CDN] for images <br/>
+6. [CloudFront CDN] for images <br/>
  Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
-7. **Intercloud interaction (GCP + AWS)<br/>
+7. Intercloud interaction (GCP + AWS)<br/>
 Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
-8. **Continous Integration and Continous Delivery for Frontend app in GCP 
+8. Continous Integration and Continous Delivery for Frontend app in GCP 
   Used Github actions to setup CI/CD so that once frontend code is pushed to git, a container build is created and deployed to GKE cluster immediately 
 
 9. Continuous Integration for Microservices using **Github Actions <br/>
   Used Github actions to setup CI so that once microservices code is pushed to git, a container build is created and deployed to dockerhub immediately.
   
-10. **[Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
+10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
     When a user login into app his credentials are authenticated using firebase service
     
-11. **[Route 53] pointing to Kubernetes Load balancers <br/>
+11. [Route 53] pointing to Kubernetes Load balancers <br/>
     Used Route53 to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
 
-12. **[Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
+12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
     Used Swagger before dev started to establish API contracts and setup the mocks to unblock development.
 
-13. OneSignal Push Notification service **[OneSignal] (https://onesignal.com/): Using the OneSignalSDK, we trigger web push notifications when a user posts a new image.
+13. OneSignal Push Notification service [OneSignal] (https://onesignal.com/): Using the OneSignalSDK, we trigger web push notifications when a user posts a new image.
 
 
 Project Management:
