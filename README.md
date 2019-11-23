@@ -38,3 +38,14 @@ Below is the high level architecture of our implementation of Instagram app.
 9. Continuous Integration for Microservices using Github Actions
 10. Firebase authentication
 11. Route 53 pointing to Kubernetes Load balancers
+12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
+
+
+Project Management:
+Used Git Project Dashboard to manage tasks.
+![alt text](https://https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png)
+
+
+Try the app at:
+
+
