@@ -25,7 +25,7 @@ Below are the core functionalities of our implementation of Instagram <br/>
 ### Project Architecture: <br/>
 Below is the high level architecture of our implementation of Instagram app.
 
-
+![Architecture](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Architecture%20DIagram.png)
 
 ## Key Cloud Features implemented
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
