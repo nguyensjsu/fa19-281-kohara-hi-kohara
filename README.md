@@ -62,8 +62,8 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 9. Continuous Integration for Microservices using Github Actions <br/>
     Whenever any changes is made to master github actions will detect and build a new image of that on docker hub
   
-10. Firebase authentication <br/>
-    When a user login into app his credntials are authenticated using firebase service
+10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
+    When a user login into app his credentials are authenticated using firebase service
     
 11. Route 53 pointing to Kubernetes Load balancers <br/>
     Used Route53 to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
