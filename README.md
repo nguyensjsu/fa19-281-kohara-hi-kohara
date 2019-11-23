@@ -36,13 +36,14 @@ Below is the high level architecture of our implementation of Instagram app.
 3. [VPC Peering to create service mesh](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/1.%20VPN%20Peering%20Instructions.md)
   VPC peering used to connect individual VPCs into a common mesh for backend services to integrate seamlesly without going through external load balancers or API gateway. This also ensure higher throughput and lower latencies.
   
-4. AWS API gateway for client auth
+4. AWS API gateway for client auth <br/>
   Clients (e.g: React App) connect to backend services through AWS API gateway. A route is created for each of the microservice that client can use to work with.
   
-5. Event sourcing using AWS SQS for CQRS
+5. Event sourcing using AWS SQS for CQRS <br/>
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
-6. CloudFront CDN for images
+6. CloudFront CDN for images <br/>
+  Using Cloud Front 
 
 7. Intercloud interaction (GCP + AWS)
 
