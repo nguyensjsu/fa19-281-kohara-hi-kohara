@@ -1,100 +1,68 @@
-# CMPE 281
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Deploy on Kubernetes
+## Available Scripts
 
-## Normal objects
+In the project directory, you can run:
 
-### Build docker image
-```
-docker build --tag frontend:latest .
-```
+### `npm start`
 
-#### Deploy with native `kubectl` commands
-```
-kubectl apply -f kubernetes/config-dev.yaml # creates the configMap in the Kubernetes cluster
-kubectl apply -f kubernetes/deployment.yaml
-kubectl apply -f kubernetes/service.yaml
-```
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-** Undo deployments ** 
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-```
-kubectl delete configMap frontend-config
-kubectl delete deployment frontend
-kubectl delete service frontend
-```
+### `npm test`
 
-Forward port 
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
-kubectl port-forward svc/frontend 3001:80
-```
+### `npm run build`
 
-Then access the app at [http://localhost:3001](http://localhost:3001)
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Deploy with [helm](https://helm.sh/)
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-### Create release
-```
-helm upgrade dev-release ./helm-chart/ --install --force --values helm-chart/config-values/config-dev.yaml
-helm ls #verify dev-release is present
-```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
-### Undo release
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```
-helm delete --purge dev-release
-```
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Deploy with [kustomize](https://kustomize.io/)
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Build with kustomize to see what Kubernetes objects are generated
-```
-kustomize build kustomize/base/
-```
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Apply base
-```
-kubectl apply -k kustomize/base
-```
+## Learn More
 
-Undo
-```
-kubectl delete -k kustomize/base
-```
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Apply DEV overlay
-```
-kubectl apply -k kustomize/overlays/dev
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Undo
-```
-kubectl delete -k kustomize/overlays/dev
-```
+### Code Splitting
 
-## Cherry on the cake - use [skaffold](https://skaffold.dev/)
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-> We will use [skaffold profiles](https://skaffold.dev/docs/how-tos/profiles/)
+### Analyzing the Bundle Size
 
-### Deploy via kubectl 
-```
-skaffold run -p native-kubernetes
-```
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-```
-skaffold delete -p native-kubernetes
-```
+### Making a Progressive Web App
 
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Deploy via kustomize
+### Advanced Configuration
 
-For example build the prod thing:
-```
-skaffold run -p kustomize-prod
-```
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-```
-skaffold delete -p kustomize-prod
-```
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
