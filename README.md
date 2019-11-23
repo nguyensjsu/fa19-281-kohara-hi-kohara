@@ -5,7 +5,7 @@
 - [Arkhil Thakkar](https://github.com/arkil) (013825292) <br />
 - [Saket Thakre](https://github.com/saketthakare) (012440974) <br />
 - [Varun Jain](https://github.com/thevarunjain) (013719108)  <br />
-- [Varun Shrivastav](https://github.com/svarun1307) ( )  <br />
+- [Varun Shrivastav](https://github.com/svarun1307) (011438531)  <br />
 - [Vishwanath Manvi](https://github.com/vishumanvi) (013776204)  <br />
 
 ## Project Summary:
@@ -55,12 +55,13 @@ All VPCs are connected through VPC peering to communicate with each other withou
  Store posted images on S3 and used Cloudfront  CDN to retrieve images faster 
 
 7. Intercloud interaction (GCP + AWS)<br/>
-Deployed Frontend on GCP using GKE and Backend on AWS using EKS  
+Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
 8. Continous Integration and Continous Delivery for Frontend app in GCP 
+  Used Github actions to setup CI/CD so that once frontend code is pushed to git, a container build is created and deployed to GKE cluster immediately 
 
 9. Continuous Integration for Microservices using Github Actions <br/>
-    Whenever any changes is made to master github actions will detect and build a new image of that on docker hub
+  Used Github actions to setup CI so that once microservices code is pushed to git, a container build is created and deployed to dockerhub immediately.
   
 10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
     When a user login into app his credentials are authenticated using firebase service
@@ -69,7 +70,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
     Used Route53 to resolve the load balancers fronting the microservices to keep it static and avoid multiple config changes.
 
 12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
-
+    Used Swagger before dev started to establish API contracts and setup the mocks to unblock development.
 
 Project Management:
 Used Git Project Dashboard to manage tasks.
