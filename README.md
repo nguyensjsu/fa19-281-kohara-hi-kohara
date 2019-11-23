@@ -26,5 +26,12 @@ Below are the core functionalities of our implementation of Instagram <br/>
 Below is the high level architecture of our implementation of Instagram app.
 
 
-
-
+## Key Cloud Features implemented
+1. AWS EKS and Kubernetes clusters for Micro services
+2. VPC Peering to create service mesh
+3. AWS API gateway for client auth
+4. Event sourcing with CRQS
+5. CloudFront CDN for images
+6. Intercloud interaction (GCP + AWS)
+7. Continous Integration/Continous Delivery in GCP
+8. Continuous Integration for Microservices using Github Actions
