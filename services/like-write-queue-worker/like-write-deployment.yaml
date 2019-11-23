@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: like-write-service
+  labels:
+    app: like-write-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: like-write-service
+  template:
+    metadata:
+      labels:
+        app: like-write-service
+    spec:
+      containers:
+        - name: like-write
+          image: 'saketthakare/like-write:v1'

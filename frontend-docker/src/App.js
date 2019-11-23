@@ -1,33 +1,31 @@
-import React, {useState, useEffect} from 'react';
-import './App.css';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter } from "react-router-dom";
+import Main from "./components/Main";
+
+let lgt =  function(){
+  window.localStorage.clear();
+  window.location.href= "./login";
+}
 
 function App() {
 
-    const [data, setData] = useState([]);
-
-    let navbarStyles = {
-        backgroundColor: window.REACT_APP_NAVBAR_COLOR
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-
-            const result = await axios(
-                window.REACT_APP_API_URL,
-            );
-            setData(result.data);
-        };
-        fetchData();
-    }, []);
 
 
-    return (
+  return (
+        <BrowserRouter>
+          <div>
+            <Main />
+            
+            {
+            window.localStorage.getItem("Username") ?
+              (<div className="lgt" onClick={lgt}>
+              Logout
+            </div>): null 
+            }
+          </div>
+        </BrowserRouter>
+  );
 
-        <div>
-            <img src="https://i.imgur.com/C7jbKhd.png" alt="100 - 200 Jyada lele"></img>
-        </div>
-    );
 }
 
 export default App;
