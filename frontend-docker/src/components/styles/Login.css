@@ -1,0 +1,163 @@
+/*W3ubs.com - Download Free Responsive Website Layout Templates designed on HTML5 CSS3,
+Bootstrap which are 100% Mobile friendly. w3Hubs all Layouts are responsive cross 
+browser supported, best quality world class designs.*/
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Montserrat:300i,400,400i,500,600,700');
+body{
+	padding: 0;
+	margin: 0;
+	font-family: 'Dancing Script', cursive;
+font-family: 'Montserrat', sans-serif;
+
+}
+h1{
+	text-align: center;
+	padding: 10px;
+	font-family: 'Dancing Script', cursive;
+	font-size: 110px;
+}
+
+form{
+	width: 50%;
+	margin: 0 auto;
+	display: block;
+	padding: 20px;
+	
+}
+.btn {
+	display: block;
+	width: 100%;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+h4{
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-transform: capitalize;
+	font-size: 18px;
+	color: #AAB7B8;
+	line-height: 2;
+	margin-top: 5px;
+}
+h4:before,h4:after{
+	height: 1.5px;
+    display: inline-block;
+    width: 100px;
+    background: #E5E7E9;
+    border-right: 1px white;
+    content: '';
+    margin-left: 10px;
+    padding: 1px;
+    margin-right: 10px;
+
+}
+.form-control{
+	background: #F4F6F7;
+	font-size: 18px;
+	height: 50px;
+}
+p{
+	
+	text-align: center;
+}
+
+p a{
+	text-align: center;
+	color: #2980B9 !important;
+	font-weight: 500;
+	text-decoration: none;
+} 
+p a:hover{
+	color: #2E86C1;
+	text-decoration: none;
+}
+.fa{
+	padding-right: 10px;
+	font-size: 26px !important;
+	color: #1F618D;
+	
+	line-height: 2;
+}
+/* #w3hubs .box{
+	
+              border-bottom: 1px solid #D0D3D4 !important;
+              border-top: 1px solid #D0D3D4 !important;
+              height: 35px;
+              background: #ECF0F1;
+
+} */
+.box p{
+	text-align: center;
+	font-size: 30px;
+
+}
+
+@media(max-width: 992px){
+	.form-control{
+		font-size: 14px;
+	}
+}
+@media(max-width: 768px){
+	form{
+		width: 90%;
+	}
+}
+@media(max-width:550px ){
+	.box p {
+    
+    font-size: 24px;
+}
+}
+@media(max-width: 462px){
+		.box p {
+    
+    font-size: 20px;
+}
+h1{
+	font-size: 90px;
+}
+
+}
+@media(max-width: 390px){
+	.form-control {
+    font-size: 12px;
+}
+h1{
+	font-size: 80px;
+}
+.box p {
+    font-size: 16px;
+}
+}
+
+.no-pad{
+    margin: 0;
+    padding: 0;
+}
+
+.instagradient {
+    background: #f09433 !important; 
+background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; 
+background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%) !important; 
+background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%) !important; 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 ) !important;
+}
+
+.logbtn{
+    padding: 15px !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+
+
+.login-image-text{
+    width: 300px;
+}
+
+.login-logo{
+    width: 80px;
+    margin-top: -11px;
+
+}

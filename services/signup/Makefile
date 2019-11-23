@@ -67,3 +67,13 @@ heroku-push:
 k-push:
 	kubectl apply -f signup-deployment.yaml
 	kubectl apply -f signup-service.yaml
+
+k-clear:
+	kubectl delete pod --all
+	kubectl delete svc --all
+	kubectl delete deployment --all
+
+k-getall:
+	kubectl get pod
+	kubectl get svc
+	kubectl get deployment
