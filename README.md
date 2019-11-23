@@ -61,7 +61,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 8. Continous Integration and Continous Delivery for Frontend app in GCP 
   Used Github actions to setup CI/CD so that once frontend code is pushed to git, a container build is created and deployed to GKE cluster immediately 
 
-9. Continuous Integration for Microservices using **Github Actions <br/>
+9. [Continuous Integration for Microservices using Github Actions] (https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Actions.png) <br/>
   Used Github actions to setup CI so that once microservices code is pushed to git, a container build is created and deployed to dockerhub immediately.
   
 10. [Firebase authentication](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Firebase/Readme.md) <br/>
