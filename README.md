@@ -2,7 +2,7 @@
 
 ## Team members: 
 Arkhil Thakkar (013825292) <br />
-Saket Thakre ( ) <br />
+Saket Thakre (012440974 ) <br />
 Varun Jain (013719108) <br />
 Varun Shrivastav ( ) <br />
 Vishwanath Manvi (013776204) <br />
@@ -45,7 +45,8 @@ Below is the high level architecture of our implementation of Instagram app.
 6. CloudFront CDN for images <br/>
   Using Cloud Front 
 
-7. Intercloud interaction (GCP + AWS)
+7. Intercloud interaction (GCP + AWS)<br/>
+Deployed Frontend on GCP using GKE and Backend on AWS using EKS  
 
 8. Continous Integration and Continous Delivery for Frontend app in GCP
 
