@@ -1,11 +1,12 @@
 # Project Title: Instagram App
 
 ## Team members: 
-Arkhil Thakkar (013825292) <br />
-Saket Thakre (012440974 ) <br />
-Varun Jain (013719108) <br />
-Varun Shrivastav ( ) <br />
-Vishwanath Manvi (013776204) <br />
+
+- [Arkhil Thakkar](https://github.com/arkil) (013825292) <br />
+- [Saket Thakre](https://github.com/saketthakare) (012440974) <br />
+- [Varun Jain](https://github.com/thevarunjain) (013719108)  <br />
+- [Varun Shrivastav](https://github.com/svarun1307) ( )  <br />
+- [Vishwanath Manvi](https://github.com/vishumanvi) (013776204)  <br />
 
 ## Project Summary:
 The project implements a prototype of Instragram app. Instagram is a popular photo sharing social networking site where users can post pictures and like or comment on them. 
