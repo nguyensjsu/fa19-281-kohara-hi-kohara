@@ -20,7 +20,7 @@ Below are the core functionalities of our implementation of Instagram <br/>
 5. Comment a post <br/>
 6. Follow a user <br/>
 7. View timeline with all posts of people you follow <br/>
-8. Notification  (TBD: Add specifics) <br/>
+8. Notification <br/>
 
 
 ### Project Architecture: <br/>
@@ -39,6 +39,7 @@ All VPCs are connected through VPC peering to communicate with each other withou
 ## Key Cloud Features implemented
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
   Each of the microservices deployed in EKS clusters of specific VPCs with auto-scaling enabled to provide high availability and reliable services that can scale per demand
+  
 2. [MongoDB sharding](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Mongo-Sharding/Sharding%20Instructions.md)
     Sharding implemented on MongoDB that's the primary datastore for most services. Sharding enables database clusters to scale in the z-axis of AFK scale. We implemented 7 mongo DB nodes (2 config node cluster, 2 shard clusters with a replica set in each along with a query server for clients to connect).
     
@@ -71,6 +72,9 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
 12. [Swagger Mockups during development](https://app.swaggerhub.com/apis-docs/saketthakare/instagram-cmpe281/1)
     Used Swagger before dev started to establish API contracts and setup the mocks to unblock development.
+
+13. OneSignal Push Notification service [OneSignal] (https://onesignal.com/): Using the OneSignalSDK, we trigger web push notifications when a user posts a new image.
+
 
 Project Management:
 Used Git Project Dashboard to manage tasks.
