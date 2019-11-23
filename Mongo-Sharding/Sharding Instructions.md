@@ -4,11 +4,11 @@
 1) Create 7 Instances with Mongo installed
 
 
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4 <br />
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | sudo t
 ee /etc/apt/sources.list.d/mongodb.list
-sudo apt update
-sudo apt install mongodb-org
+sudo apt update <br />
+sudo apt install mongodb-org <br />
 
 openssl rand -base64 741 > keyFile <br />
 sudo mkdir -p /opt/mongodb <br />
@@ -39,36 +39,34 @@ sudo service mongod status <br />
 
 Add private ip and name
 
-10.3.1.162 configsvr1
-10.3.1.186 configsvr2
-10.3.1.178 shardsvr1
-10.3.1.251 shardsvr2
-10.3.1.126 shardsvr3
-10.3.1.23 shardsvr4
-10.3.1.130 mongos
+10.3.1.162 configsvr1 <br />
+10.3.1.186 configsvr2 <br />
+10.3.1.178 shardsvr1 <br />
+10.3.1.251 shardsvr2 <br />
+10.3.1.126 shardsvr3 <br />
+10.3.1.23 shardsvr4 <br />
+10.3.1.130 mongos <br />
 
 
 3 ) Setup 2 clusters as Config Server.
 
 Modify /etc/mongod.conf
 
+net: <br />
+  port: 27018 <br />
+  bindIp: 0.0.0.0 <br />
 
-net:
-  port: 27018
-  bindIp: 0.0.0.0
+replication: <br />
+   replSetName: "replconfig01" <br />
 
+sharding: <br />
+   clusterRole: configsvr <br />
 
-replication:
-   replSetName: "replconfig01"
-
-sharding:
-   clusterRole: configsvr
-
-security:
-   keyFile: /opt/mongodb/keyFile
+security: <br />
+   keyFile: /opt/mongodb/keyFile <br />
 
 
- 4) Login in to ConfigServer and initiate replica set
+4) Login in to ConfigServer and initiate replica set
  
  rs.initiate(
   {
@@ -89,16 +87,15 @@ Shard1:(In both Nodes)
 
 Modify  /etc/mongod.conf
 
+net: <br />
+  port: 27017 <br />
+  bindIp: 0.0.0.0 <br />
 
-net:
-  port: 27017
-  bindIp: 0.0.0.0
+replication: <br />
+   replSetName: "shardreplica01" <br />
 
-replication:
-   replSetName: "shardreplica01"
-
-sharding:
-   clusterRole: shardsvr
+sharding: <br />
+   clusterRole: shardsvr <br />
 
 
  Login in to Shard Server and initiate replica set
@@ -122,18 +119,17 @@ Shard2:(In both Node)
 Modify  /etc/mongod.conf
 
 
-net:
-  port: 27018
-  bindIp: 0.0.0.0
+net: <br />
+  port: 27018 <br />
+  bindIp: 0.0.0.0 <br />
 
-replication:
-   replSetName: "shardreplica02"
+replication: <br />
+   replSetName: "shardreplica02" <br />
 
-sharding:
-   clusterRole: shardsvr
+sharding: <br />
+   clusterRole: shardsvr <br />
 
-
- Login in to Shard Server and initiate replica set
+Login in to Shard Server and initiate replica set
  
  rs.initiate(
    {
@@ -152,31 +148,28 @@ sharding:
 Modify  /etc/mongod.conf
 
 
-net:
-  port: 27019
-  bindIp: 0.0.0.0
+net: <br />
+  port: 27019 <br />
+  bindIp: 0.0.0.0 <br />
 
-
- To start cmd line mongo
-
-
+ To start cmd line mongo<br />
  mongos --configdb "replconfig01/configsvr1:27018,configsvr2:27018"
 
 
 In Mongo Shell:
 
- sh.addShard( "shardreplica01/shardsvr1:27017")
- sh.addShard( "shardreplica01/shardsvr2:27017")
+ sh.addShard( "shardreplica01/shardsvr1:27017") <br />
+ sh.addShard( "shardreplica01/shardsvr2:27017") <br />
 
 
- sh.addShard( "shardreplica02/shardsvr3:27017")
- sh.addShard( "shardreplica02/shardsvr4:27017")
+ sh.addShard( "shardreplica02/shardsvr3:27017") <br />
+ sh.addShard( "shardreplica02/shardsvr4:27017") <br />
 
- sh.status()
+ sh.status() <br />
 
- use follow;
- sh.enableSharding("follow")
- sh.shardCollection("follow.follow", { "follower" : "hashed" } )
+ use follow; <br />
+ sh.enableSharding("follow") <br />
+ sh.shardCollection("follow.follow", { "follower" : "hashed" } ) <br />
 
 
 
