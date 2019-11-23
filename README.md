@@ -49,7 +49,7 @@ All VPCs are connected through VPC peering to communicate with each other withou
 4. **[AWS API gateway] for client auth <br/>
   Clients (e.g: React App) connect to backend services through AWS API gateway. A route is created for each of the microservice that client can use to work with.
   
-5. Event sourcing using **[AWS SQS] for CQRS <br/>
+5. [Event sourcing using **[AWS SQS] for CQRS](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/tree/master/SQS) <br/>
   Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
 6. [CloudFront CDN] for images <br/>
