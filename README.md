@@ -76,7 +76,7 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 13. OneSignal Push Notification service [OneSignal] (https://onesignal.com/): Using the OneSignalSDK, we trigger web push notifications when a user posts a new image.
 
 
-Project Management:
+## Project Management:
 
 Used Git Project Dashboard to manage tasks.
 
@@ -86,18 +86,18 @@ Followed Agile practise using GitHub Issue board
 
 ![Issue](https://user-images.githubusercontent.com/42597460/69481994-e2550900-0dca-11ea-96ec-b38550d0a927.png)
 
-UI Screenshots:
+## UI Screenshots:
 
-Signin:
+### Signin:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signin.png "Signin")
 
 
-Signup:
+### Signup:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup2.png "Signup")
 
-View timeline:
+### View timeline:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Signup.png "Timeline")
 
@@ -105,16 +105,16 @@ View Profile:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Profile.png "Profile")
 
-Submit a Post:
+### Submit a Post:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/SubmitPost.png "Post")
 
-Follow a friend:
+### Follow a friend:
 
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/Screenshots/Follow.png "Follow")
 
 
-Try the app at:
+## Try the app at:
 
 http://landkarade.team/
 
