@@ -1,4 +1,4 @@
-# Instagram App
+# Project Title: Instagram App
 
 ## Team members: 
 Arkhil Thakkar (013825292) <br />
