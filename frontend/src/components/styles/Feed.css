@@ -131,3 +131,9 @@ footer a{
     max-height: 90%;
     overflow: scroll;
 }
+
+.commenter{
+  font-weight: bold;
+  padding-right: 10px;
+  font-size: 15px;
+}

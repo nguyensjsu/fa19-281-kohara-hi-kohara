@@ -1,0 +1,17 @@
+name: Build login docker image
+on:
+  push:
+    paths:
+      - 'services/login/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish login to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: saketthakare/login:v1
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: ./services/login

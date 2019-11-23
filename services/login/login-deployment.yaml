@@ -16,4 +16,8 @@ spec:
     spec:
       containers:
         - name: login
-          image: 'saketthakare/login:v1'
+          image: 'thevarunjain/login:v1'
+#          imagePullPolicy : Always
+          env:
+            - name: MONGO
+              value: "mongodb://admin:admin@10.5.1.149:27017/?authSource=admin"

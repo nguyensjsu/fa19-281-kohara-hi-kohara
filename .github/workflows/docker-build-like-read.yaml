@@ -1,0 +1,17 @@
+name: Build like-read docker image
+on:
+  push:
+    paths:
+      - 'services/like-read/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish like-read to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: saketthakare/like-read:v1
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: ./services/like-read
