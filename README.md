@@ -27,7 +27,7 @@ Below is the high level architecture of our implementation of Instagram app.
 
 
 ## Key Cloud Features implemented
-1. AWS EKS and Kubernetes clusters for Micro services with auto-scaling
+1. Microservices with auto-scaling deployed using Kubernetes on EKS cluster
 2. MongoDB sharding
 3. VPC Peering to create service mesh
 4. AWS API gateway for client auth
