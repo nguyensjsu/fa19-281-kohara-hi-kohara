@@ -5,7 +5,7 @@ ADD . /app/
 WORKDIR /app 
 ENV GOPATH /app
 ENV PORT 3000
-ENV MONGO mongodb://admin:admin@10.3.1.166:27017/?authSource=admin
+ENV MONGO mongodb://admin:admin@10.3.1.178:27017,10.3.1.126:27017/?authSource=admin
 RUN cd /app ;
 RUN export GOPATH=$(pwd);export PATH=$PATH:$GOPATH/bin
 RUN go get -v github.com/codegangsta/negroni
