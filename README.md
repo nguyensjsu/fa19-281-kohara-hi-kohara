@@ -26,6 +26,7 @@ Below are the core functionalities of our implementation of Instagram <br/>
 Below is the high level architecture of our implementation of Instagram app.
 
 
+
 ## Key Cloud Features implemented
 1. [Microservices with auto-scaling deployed using Kubernetes on EKS cluster](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/eks/README.md)
   Each of the microservices deployed in EKS clusters of specific VPCs with auto-scaling enabled to provide high availability and reliable services that can scale per demand
@@ -38,7 +39,8 @@ Below is the high level architecture of our implementation of Instagram app.
 4. AWS API gateway for client auth
   Clients (e.g: React App) connect to backend services through AWS API gateway. A route is created for each of the microservice that client can use to work with.
   
-5. Event sourcing using AWS SQS for CRQS
+5. Event sourcing using AWS SQS for CQRS
+  Created Read and Write diffrent services, worker thread having integration with sqs queue pulls the message written to write services 
 
 6. CloudFront CDN for images
 
