@@ -77,9 +77,13 @@ Deployed Frontend on GCP using GKE and Backend on AWS using EKS
 
 
 Project Management:
+
 Used Git Project Dashboard to manage tasks.
 ![alt text](https://github.com/nguyensjsu/fa19-281-kohara-hi-kohara/blob/master/docs/gitproject.png "Project Dashboard")
 
+Followed Agile practise using GitHub Issue board 
+
+![Issue](https://user-images.githubusercontent.com/42597460/69481994-e2550900-0dca-11ea-96ec-b38550d0a927.png)
 
 Try the app at:
 
