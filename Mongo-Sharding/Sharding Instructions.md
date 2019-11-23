@@ -38,8 +38,8 @@ sudo service mongod status
 
 Add private ip and name
 
-10.3.1.162 configsvr1
-10.3.1.186 configsvr2
+10.3.1.162 configsvr1 <br />
+10.3.1.186 configsvr2 
 10.3.1.178 shardsvr1
 10.3.1.251 shardsvr2
 10.3.1.126 shardsvr3
@@ -176,6 +176,14 @@ In Mongo Shell:
  use follow;
  sh.enableSharding("follow")
  sh.shardCollection("follow.follow", { "follower" : "hashed" } )
+
+
+
+ ![](1.png)
+
+ ![](2.png)
+
+ ![](3.png)
 
 
 
