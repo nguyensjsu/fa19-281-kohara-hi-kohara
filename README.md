@@ -3,7 +3,7 @@
 ## Team members: 
 
 - [Arkil Thakkar](https://github.com/arkil) (013825292) <br />
-- [Saket Thakre](https://github.com/saketthakare) (012440974) <br />
+- [Saket Thakare](https://github.com/saketthakare) (012440974) <br />
 - [Varun Jain](https://github.com/thevarunjain) (013719108)  <br />
 - [Varun Shrivastav](https://github.com/svarun1307) (011438531)  <br />
 - [Vishwanath Manvi](https://github.com/vishumanvi) (013776204)  <br />
