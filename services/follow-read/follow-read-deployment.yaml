@@ -16,4 +16,6 @@ spec:
     spec:
       containers:
         - name: follow-read
-          image: 'saketthakare/follow-read:v1'
+          image: 'arkil21396/follow-read'
+          imagePullPolicy: Always
+
